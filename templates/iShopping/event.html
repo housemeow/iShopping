@@ -3,27 +3,27 @@
 		<div class="list">
 		   <label class="item item-input">
 			    <span class="input-label">名稱: </span>
-			    <input type="text" ng-model="event.name">
+			    <input type="text" ng-model="event.name" ng-disabled="state == 'VIEW'">
 			</label>
 			<label class="item item-input">
 			    <span class="input-label">詳細: </span>
-			    <input type="tel" ng-model="event.detail">
+			    <input type="text" ng-model="event.detail" ng-disabled="state == 'VIEW'">
 			</label>
 			<label class="item item-input">
 			    <span class="input-label">目的地: </span>
-			    <input type="text" ng-model="event.destination">
+			    <input type="text" ng-model="event.destination" ng-disabled="state == 'VIEW'">
 			</label>
 			<label class="item item-input">
 			    <span class="input-label">日期: </span>
-			    <input type="date" ng-model="event.date">
+			    <input type="date" ng-model="event.date" ng-disabled="state == 'VIEW'">
 			</label>
 			<label class="item item-input">
 			    <span class="input-label">時間: </span>
-			    <input type="date" ng-model="model.time">
+			    <input type="date" ng-model="event.time" ng-disabled="state == 'VIEW'">
 			</label>
 			<label class="item item-input">
 			    <span class="input-label">集合點: </span>
-			    <input type="date" ng-model="model.gatheringPoitnt">
+			    <input type="text" ng-model="event.gatheringPoint" ng-disabled="state == 'VIEW'">
 			</label>
         </div>
 	    
