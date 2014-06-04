@@ -62,6 +62,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/iShopping/chat.html',
             controller: 'ChatCtrl'
 	    })
+	    .state('event', {
+	        url: '/event',
+            templateUrl: 'templates/iShopping/event.html',
+            controller: 'EventController'
+	    })
 	    .state('map', {
 	        url: '/map?latitude&longitude&friendName&isMe',
             templateUrl: 'templates/iShopping/map.html',
