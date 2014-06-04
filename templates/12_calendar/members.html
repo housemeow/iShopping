@@ -1,0 +1,26 @@
+<ion-view title="'會員列表'" ng-init="init()" right-buttons="refreshButton">
+    <ion-content has-header="true" has-tabs="true" has-bouncing="true">
+		<div class="list">
+		    <div ng-show="getCount() == 0" class="item item-icon-left" >
+			    <i class="icon ion-person-stalker"></i>
+			    	朋友列表
+			    <span class="item-note">
+					請新增朋友
+				</span>
+			</div>
+			<div ng-show="getCount() > 0" ng-repeat="friend in friends | sortBy:'message'  track by $index">
+		    	<div ng-show="friend.isMember"  class="item item-icon-left item-icon-right">
+		    		<i class="icon ion-ios7-chatbubble"></i>
+	                <div ng-click="toURL(friend.phone)">
+	                	<h2>{{friend.name}}</h2>
+	                	<h2 class="rightItem" style="margin-top: -20px;">生日提醒</h2>
+		                <p>{{friend.lastMessage | fromNow}} &nbsp;</p>
+		                <p class="rightItem">{{friend.birthday}}</p>
+		                <span class="badge badge-assertive" ng-show="getUnread(friend) > 0">{{getUnread(friend)}}</span>  
+				    </div>
+				    <i class="icon" ng-click="onSetEventClick(friend)" ng-class="friend.eventId ? 'ion-ios7-checkmark':'ion-ios7-checkmark-outline'"></i>
+				</div>
+	        </div>
+        </div>
+    </ion-content>
+</ion-view>

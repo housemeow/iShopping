@@ -1,0 +1,19 @@
+<ion-view title="host.publisherName" ng-init="init()">
+	<ion-content has-header="true" has-tabs="true" has-bouncing="true">
+		<div class="list">
+			<div ng-show="!isSubscribe">
+			    <span class="item-note">
+					請訂閱官方消息
+				</span>
+			</div>
+			<div ng-show="isSubscribe" ng-repeat="message in reverse(messages) track by $index">
+		    	<div ng-show="message.senderPhone != hostPhone" class="item item-body" ng-class="message.senderPhone == hostPhone ? 'item-icon-right' : 'item-icon-left'">
+	                <div>
+		                <p>{{message.message}}</p>
+		                <p>{{message.time | fromNow}}</p>
+				    </div>
+		        </div>
+	        </div>
+        </div>
+    </ion-content>
+</ion-view>

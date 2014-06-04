@@ -1,0 +1,23 @@
+<ion-view title="'07 Hello Queue'" ng-init="init()">
+    <ion-content has-header="true" has-tabs="true">
+		<div class="list">
+		    <div ng-show="getCount() == 0" class="item item-icon-left" >
+			    <i class="icon ion-person-stalker"></i>
+			    	朋友列表
+			    <span class="item-note">
+					請新增朋友
+				</span>
+			</div>
+			<div ng-show="getCount() > 0" ng-repeat="friend in friends track by $index">
+		    	<div ng-show="friend.isMember"  class="item item-icon-right" ng-click="toURL('#/chat/' + friend.phone)">
+	                <div>
+		                <h2>{{friend.name}}</h2>
+		                <span class="badge badge-assertive" ng-show="getUnread(friend.phone) > 0">{{getUnread(friend.phone)}}</span>
+				    </div>
+					<i class="icon ion-ios7-chatbubble"></i>
+				</div>
+	        </div>
+        </div>
+	    
+    </ion-content>
+</ion-view>

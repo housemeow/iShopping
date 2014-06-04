@@ -1,0 +1,47 @@
+/* Reset CSS */
+a, abbr, address, article, aside, audio, b, blockquote, body, canvas, caption, cite, code, dd, del, details, dfn, dialog, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, p, pre, q, samp, section, small, span, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, ul, var, video {
+	margin: 0;
+	padding: 0;
+}
+
+/* Worklight container div */
+#content {
+	height: 460px;
+	margin: 0 auto;
+	width: 320px;
+}
+
+.member {
+	color:blue;
+	font-weight: bold;
+}
+
+.byMe {
+	text-align: right;
+}
+
+.rightItem {
+	float: right;
+	margin-top: -20px;
+}
+
+.higherItem{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#map-canvas {
+   	height: 400px;
+}
+
+ .labels {
+   color: red;
+   background-color: white;
+   font-family: "Lucida Grande", "Arial", sans-serif;
+   font-size: 10px;
+   font-weight: bold;
+   text-align: center;
+   width: 60px;     
+   border: 2px solid black;
+   white-space: nowrap;
+ }
