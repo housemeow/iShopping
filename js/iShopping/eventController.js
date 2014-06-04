@@ -1,17 +1,7 @@
 app.controller('EventController', function($scope, ChatManager, $stateParams, FriendManager, SettingManager, iLabMessage, $window, Geolocation, $state){
-	$scope.newFriendsButton = [{
-		type: 'button-positive',
-		content: "<i class='icon ion-plus'></i>",
-		tap: function() {
-				$scope.onFriendClick($scope.ADDFRIEND);
-			}
-	}];	
+	
 	$scope.event = {};
 	$scope.init = function() {
-		for(var index in $scope.messages) {
-			var message = $scope.messages[index];
-			$scope.readMessage(message);
-		}
 	};
 	/*
 	$scope.eventList =[

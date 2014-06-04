@@ -2,10 +2,16 @@ app.controller('EventListController', function($scope, ChatManager, $stateParams
 	$scope.newEventButton = [{
 		type: 'button-positive',
 		content: "<i class='icon ion-plus'></i>",
-		tap: function() {
-				$scope.onFriendClick($scope.ADDFRIEND);
-			}
+		tap: function() 
+		{
+			$state.go('event', {});
+		}
 	}];	
+	
+	$scope.goToCreateEventPage = function()
+	{
+		$state.go('event');
+	};
 	
 	$scope.eventList =[
 	                   {
