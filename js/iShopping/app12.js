@@ -52,6 +52,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
 	        }
 	    })
+	    .state('eventMap', {
+	        url: '/eventMap?eid&name',
+            templateUrl: 'templates/iShopping/eventMap.html',
+            controller: 'EventMapController'
+	    })
 	    .state('chat', {
 	        url: '/chat?phone&defaultMessage',
             templateUrl: 'templates/iShopping/chat.html',

@@ -34,6 +34,7 @@ app.controller('EventListController', function($scope, ChatManager, $stateParams
 
 	};
 	
+	
 //	$scope.phone = $stateParams.phone;
 //	$scope.chatMessage = {};
 //	$scope.chatMessage.text = $stateParams.defaultMessage ? $stateParams.defaultMessage : "";

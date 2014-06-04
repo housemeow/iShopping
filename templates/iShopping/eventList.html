@@ -1,22 +1,21 @@
 <ion-view title="'活動列表'" right-buttons="newEventButton" ng-init="init()">
-    <ion-content has-header="true" has-tabs="true" has-bouncing="true">
-		<div class="list">
-		
-		    <div ng-show="eventList.length==0" class="item item-icon-left" >
-			    <i class="icon ion-ios7-calendar-outline"></i>
-			    	活動列表
-			    <span class="item-note">
-					沒有任何活動，快來新增一個吧！
-				</span>
-			</div>
-			
-		    <div ng-show="eventList.length!=0" ng-repeat="event in eventList" class="item item-icon-left item-icon-right">
-                <div ng-click="onFriendClick(BLESS, friend.id)">
-	                <h2>{{event.name}}</h2>
-	                <span class="item-note">{{event.date| afterDay}}</span>
-			    </div>
-	        </div>
-        </div>
-	    
-    </ion-content>
-</ion-view>
+<ion-content has-header="true" has-tabs="true" has-bouncing="true">
+<div class="list">
+
+	<div ng-show="eventList.length==0" class="item item-icon-left">
+		<i class="icon ion-ios7-calendar-outline"></i> 活動列表 <span
+			class="item-note"> 沒有任何活動，快來新增一個吧！ </span>
+	</div>
+	<div ng-show="eventList.length!=0">
+		<a class="item"
+			href="#/eventMap?eid={{event.eid}}&name={{event.name}}"
+			ng-repeat="event in eventList"
+			class="item item-icon-left item-icon-right">
+
+			<h2>{{event.name}}</h2> <span class="item-note">{{event.date|
+				afterDay}}</span>
+		</a>
+	</div>
+</div>
+
+</ion-content> </ion-view>
