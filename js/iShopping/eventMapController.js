@@ -11,11 +11,11 @@ app.controller('EventMapController', function($scope, $stateParams, $state,
 		}
 	} ];
 
-	$scope.eventMemberButton = [ {
+	$scope.eventChatRoomButton = [ {
 		type : 'button-positive',
-		content : "<i class='icon ion-android-friends'></i>",
+		content : "<i class='icon ion-chatbubbles'></i>",
 		tap : function() {
-
+			// go to event chat room page
 		}
 	} ];
 

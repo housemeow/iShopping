@@ -15,7 +15,7 @@
 			</label>
 			<label class="item item-input">
 			    <span class="input-label">日期: </span>
-			    <input type="date" ng-model="event.date" ng-disabled="state == 'VIEW'" placeholder="yyyy-MM-dd">
+			    <input type="date" ng-model="event.date" ng-disabled="state == 'VIEW'">
 			</label>
 			<label class="item item-input">
 			    <span class="input-label">時間: </span>
@@ -23,8 +23,9 @@
 			</label>
 			<label class="item item-input">
 			    <span class="input-label">集合點: </span>
-			    <input type="text" ng-model="event.gatheringPoint" ng-disabled="state == 'VIEW'">
+			    <input type="text" ng-model="event.gatheringPoint.latitude" ng-disabled="state == 'VIEW'">
 			</label>
+			<button ng-click="clickGatheringPointButton()"class="button button-positive">{{gatheringPointButonText}}</button>
         </div>
 	    
     </ion-content>
