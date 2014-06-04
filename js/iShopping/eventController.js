@@ -58,4 +58,9 @@ app.controller('EventController', function($scope, ChatManager, $stateParams, Fr
 				state: $scope.state});
 		*/
 	};
+	
+	$scope.clickCancelButton = function()
+	{
+		$state.go('event', {state:'VIEW'});
+	}
 });
