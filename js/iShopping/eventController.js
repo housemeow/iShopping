@@ -36,7 +36,8 @@ app.controller('EventController', function($scope, ChatManager, $stateParams, Fr
 		$scope.event.name = "逛夜市";
 		$scope.event.detail = "帶兩百塊";
 		$scope.event.destination = "士林夜市"
-		$scope.event.date = new Date('2014-6-6');
+		$scope.event.date = new Date('2014-12-18'); // 尚未成功
+		$scope.event.time = '14:00';
 		$scope.event.gatheringPoint = "(123, 312)";
 		$scope.state = $stateParams.state;
 		$scope.refreshState($scope.state);
