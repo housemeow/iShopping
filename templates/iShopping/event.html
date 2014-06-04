@@ -22,8 +22,7 @@
 			    <input type="time" ng-model="event.time" ng-disabled="state == 'VIEW'">
 			</label>
 			<label class="item item-input">
-			    <span class="input-label">集合點: </span>
-			    <input type="text" ng-model="event.gatheringPoint.latitude" ng-disabled="state == 'VIEW'">
+			    <span class="input-label">集合點: {{gatheringPointString}}</span>
 			</label>
 			<button ng-click="clickGatheringPointButton()"class="button button-positive">{{gatheringPointButonText}}</button>
         </div>

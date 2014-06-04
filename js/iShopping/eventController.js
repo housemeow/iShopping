@@ -40,10 +40,9 @@ app.controller('EventController', function($scope, ChatManager, $stateParams, Fr
 		$scope.event.destination = "士林夜市";
 		$scope.event.date = new Date('2014-12-18'); // 尚未成功
 		$scope.event.time = '14:00';
-		$scope.event.gatheringPoint = {
-				latitude:123,
-				longitude:321
-		};
+		$scope.event.gatheringPointLat = 75; // 南北緯度 0-90
+		$scope.event.gatheringPointLon = 123; // 東西經度 0-180
+		$scope.gatheringPointString = "(" + $scope.event.gatheringPointLat + ", " + $scope.event.gatheringPointLon + ")";
 		$scope.state = $stateParams.state;
 		$scope.refreshState($scope.state);
 		
@@ -57,6 +56,6 @@ app.controller('EventController', function($scope, ChatManager, $stateParams, Fr
 				latitude: $scope.gatheringPoint.latitude,
 				longitude: $scope.gatheringPoint.longitude,
 				state: $scope.state});
-				*/
+		*/
 	};
 });
