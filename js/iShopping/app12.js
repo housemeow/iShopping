@@ -89,12 +89,17 @@ app.filter('afterDay', function() {
 			return '未知';
 		var birthday = new Date(dateString);
 		var now = moment().startOf('day').toDate();
-		birthday.setFullYear(now.getFullYear());
-		if (birthday < now)
-			birthday.setFullYear(now.getFullYear() + 1);
+		//birthday.setFullYear(now.getFullYear());
+		//if (birthday < now)
+		//	birthday.setFullYear(now.getFullYear() + 1);
+		
 		var span = now.dateDiff(birthday, 'd');
 		if (span == 0)
 			return '今天';
+		if(span<0){
+			return "已過期";
+		}
+		
 		return span + '天後';
 	};
 });
