@@ -58,7 +58,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'ChatCtrl'
 	    })
 	    .state('event', {
-	        url: '/event',
+	        url: '/event?state',
             templateUrl: 'templates/iShopping/event.html',
             controller: 'EventController'
 	    })

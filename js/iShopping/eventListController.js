@@ -4,7 +4,7 @@ app.controller('EventListController', function($scope, ChatManager, $stateParams
 		content: "<i class='icon ion-plus'></i>",
 		tap: function() 
 		{
-			$state.go('event');
+			$state.go('event', {state: 'CREATE'});
 		}
 	}];	
 	
