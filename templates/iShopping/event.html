@@ -25,6 +25,7 @@
 			    <span class="input-label">集合點: {{gatheringPointString}}</span>
 			</label>
 			<button ng-click="clickGatheringPointButton()"class="button button-positive">{{gatheringPointButonText}}</button>
+			<button ng-click="clickCancelButton()" ng-show="state == 'EDIT'" class="button button-positive">取消修改</button>
         </div>
 	    
     </ion-content>
