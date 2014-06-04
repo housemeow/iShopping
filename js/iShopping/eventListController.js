@@ -1,5 +1,5 @@
 app.controller('EventListController', function($scope, ChatManager, $stateParams, FriendManager, SettingManager, iLabMessage, $window, Geolocation, $state){
-	$scope.newFriendsButton = [{
+	$scope.newEventButton = [{
 		type: 'button-positive',
 		content: "<i class='icon ion-plus'></i>",
 		tap: function() {
@@ -28,7 +28,10 @@ app.controller('EventListController', function($scope, ChatManager, $stateParams
 	                	   eid: 4,
 	                	   date: new Date("2014-06-01")
 	                   },];
-	
+
+	$scope.init = function() {
+
+	};
 	
 //	$scope.phone = $stateParams.phone;
 //	$scope.chatMessage = {};
@@ -45,12 +48,6 @@ app.controller('EventListController', function($scope, ChatManager, $stateParams
 //		}
 //	});
 //	
-//	$scope.init = function() {
-//		for(var index in $scope.messages) {
-//			var message = $scope.messages[index];
-//			$scope.readMessage(message);
-//		}
-//	};
 //	
 //	$scope.onSendMessageClick = function() {
 //		if(!$scope.chatMessage.text) {
