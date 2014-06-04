@@ -21,7 +21,14 @@ app.controller('GatheringPointMapController', function($scope, $stateParams, $st
 				$state.go('event', {state: 'EDIT'});
 			};
 		}
-		$scope.setGatheringPointButton = [buttonCSS];
+		if($scope.state=="VIEW")
+		{
+			$scope.setGatheringPointButton = {};
+		}
+		else
+		{
+			$scope.setGatheringPointButton = [buttonCSS];
+		}
 		$scope.apply();
 	};
 	
