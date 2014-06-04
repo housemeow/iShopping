@@ -51,12 +51,9 @@ app.controller('EventController', function($scope, ChatManager, $stateParams, Fr
 	$scope.clickGatheringPointButton = function ()
 	{
 		// go to map page and pass state
-		/*
-		$state.go('map', {
-				latitude: $scope.gatheringPoint.latitude,
-				longitude: $scope.gatheringPoint.longitude,
+		$state.go('gatheringPointMap', {
+				eid: $scope.event.eid,
 				state: $scope.state});
-		*/
 	};
 	
 	$scope.clickCancelButton = function()
