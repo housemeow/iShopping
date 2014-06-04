@@ -30,7 +30,6 @@ app.controller('EventController', function($scope, ChatManager, $stateParams, Fr
 		}
 		console.log($scope.state);
 		$scope.eventButton = [buttonCSS];
-		$scope.apply();
 	};
 	
 	$scope.event = {};
@@ -59,5 +58,5 @@ app.controller('EventController', function($scope, ChatManager, $stateParams, Fr
 	$scope.clickCancelButton = function()
 	{
 		$state.go('event', {state:'VIEW'});
-	}
+	};
 });
