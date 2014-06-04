@@ -1,5 +1,6 @@
 /* Reset CSS */
-a, abbr, address, article, aside, audio, b, blockquote, body, canvas, caption, cite, code, dd, del, details, dfn, dialog, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, p, pre, q, samp, section, small, span, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, ul, var, video {
+a,abbr,address,article,aside,audio,b,blockquote,body,canvas,caption,cite,code,dd,del,details,dfn,dialog,div,dl,dt,em,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,p,pre,q,samp,section,small,span,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,ul,var,video
+	{
 	margin: 0;
 	padding: 0;
 }
@@ -12,7 +13,7 @@ a, abbr, address, article, aside, audio, b, blockquote, body, canvas, caption, c
 }
 
 .member {
-	color:blue;
+	color: blue;
 	font-weight: bold;
 }
 
@@ -25,23 +26,67 @@ a, abbr, address, article, aside, audio, b, blockquote, body, canvas, caption, c
 	margin-top: -20px;
 }
 
-.higherItem{
+.higherItem {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
 
 #map-canvas {
-   	height: 400px;
+	height: 400px;
 }
 
- .labels {
-   color: red;
-   background-color: white;
-   font-family: "Lucida Grande", "Arial", sans-serif;
-   font-size: 10px;
-   font-weight: bold;
-   text-align: center;
-   width: 60px;     
-   border: 2px solid black;
-   white-space: nowrap;
- }
+.labels {
+	color: red;
+	background-color: white;
+	font-family: "Lucida Grande", "Arial", sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-align: center;
+	width: 60px;
+	border: 2px solid black;
+	white-space: nowrap;
+}
+
+.controls {
+	margin-top: 16px;
+	border: 1px solid transparent;
+	border-radius: 2px 0 0 2px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	height: 32px;
+	outline: none;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+	background-color: #fff;
+	padding: 0 11px 0 13px;
+	width: 400px;
+	font-family: Roboto;
+	font-size: 15px;
+	font-weight: 300;
+	text-overflow: ellipsis;
+}
+
+#pac-input:focus {
+	border-color: #4d90fe;
+	margin-left: -1px;
+	padding-left: 14px; /* Regular padding-left + 1. */
+	width: 401px;
+}
+
+.pac-container {
+	font-family: Roboto;
+}
+
+#type-selector {
+	color: #fff;
+	background-color: #4d90fe;
+	padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+	font-family: Roboto;
+	font-size: 13px;
+	font-weight: 300;
+}
