@@ -1,18 +1,27 @@
-var app = angular.module("Simple_App04", ['ionic', 'PhoneGap','iLabBirthdayLine']);
+var app = angular.module("iShopping", ['ionic', 'PhoneGap','iLabBirthdayLine']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 	    .state('tab', {
 	        url: "/tab",
 	        abstract: true,
-	        templateUrl: "templates/12_calendar/tab.html"
+	        templateUrl: "templates/iShopping/tab.html"
 	    })
         .state('tab.friends', {
             url: '/friends',
             views: {
                 'tab-friends': {
-                    templateUrl: 'templates/12_calendar/friends.html',
+                    templateUrl: 'templates/iShopping/friends.html',
                     controller: 'FriendsCtrl'
+                }
+            }
+        })
+        .state('tab.eventList', {
+            url: '/eventList',
+            views: {
+                'tab-eventList': {
+                    templateUrl: 'templates/iShopping/eventList.html',
+                    controller: 'EventListController'
                 }
             }
         })
@@ -20,7 +29,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/setting',
             views: {
                 'tab-setting': {
-                    templateUrl: 'templates/12_calendar/setting.html',
+                    templateUrl: 'templates/iShopping/setting.html',
                     controller: 'SettingCtrl'
                 }
             }
@@ -29,7 +38,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	        url: '/members',
 	        views: {
 	            'tab-members': {
-	                templateUrl: 'templates/12_calendar/members.html',
+	                templateUrl: 'templates/iShopping/members.html',
 	                controller: 'MembersCtrl'
 	            }
 	        }
@@ -38,19 +47,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	        url: '/news',
 	        views: {
                 'tab-news': {
-                    templateUrl: 'templates/12_calendar/news.html',
+                    templateUrl: 'templates/iShopping/news.html',
                     controller: 'NewsCtrl'
                 }
 	        }
 	    })
 	    .state('chat', {
 	        url: '/chat?phone&defaultMessage',
-            templateUrl: 'templates/12_calendar/chat.html',
+            templateUrl: 'templates/iShopping/chat.html',
             controller: 'ChatCtrl'
 	    })
 	    .state('map', {
 	        url: '/map?latitude&longitude&friendName&isMe',
-            templateUrl: 'templates/12_calendar/map.html',
+            templateUrl: 'templates/iShopping/map.html',
             controller: 'MapCtrl'
 	    });
 
