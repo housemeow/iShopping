@@ -1,4 +1,4 @@
-app.controller('EventMapController', function($scope, $stateParams,
+app.controller('EventMapController', function($scope, $stateParams, $state,
 		Geolocation, $window) {
 	$scope.eventName = $stateParams.name;
 	$scope.eid = $stateParams.eid;
@@ -7,7 +7,7 @@ app.controller('EventMapController', function($scope, $stateParams,
 		type : 'button-positive',
 		content : "<i class='icon ion-document-text'></i>",
 		tap : function() {
-			//$scope.onFriendClick($scope.ADDFRIEND);
+			$state.go("event", {state:"VIEW"});
 		}
 	} ];
 
@@ -15,7 +15,7 @@ app.controller('EventMapController', function($scope, $stateParams,
 		type : 'button-positive',
 		content : "<i class='icon ion-android-friends'></i>",
 		tap : function() {
-			//$scope.onFriendClick($scope.ADDFRIEND);
+
 		}
 	} ];
 
