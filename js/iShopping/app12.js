@@ -57,6 +57,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/iShopping/eventMap.html',
             controller: 'EventMapController'
 	    })
+	    .state('eventMemberList', {
+	        url: '/eventMemberList?eid',
+            templateUrl: 'templates/iShopping/eventMemberList.html',
+            controller: 'EventMemberListController'
+	    })
+	    .state('eventChatRoom', {
+	        url: '/eventCharRoom?eid&name',
+            templateUrl: 'templates/iShopping/eventChatRoom.html',
+            controller: 'EventChatRoomController'
+	    })
 	    .state('gatheringPointMap', {
 	        url: '/gatheringPointMap?eid&state',
             templateUrl: 'templates/iShopping/gatheringPointMap.html',

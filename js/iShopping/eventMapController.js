@@ -7,7 +7,9 @@ app.controller('EventMapController', function($scope, $stateParams, $state,
 		type : 'button-positive',
 		content : "<i class='icon ion-document-text'></i>",
 		tap : function() {
-			$state.go("event", {state:"VIEW"});
+			$state.go("event", {
+				state : "VIEW"
+			});
 		}
 	} ];
 
@@ -15,7 +17,9 @@ app.controller('EventMapController', function($scope, $stateParams, $state,
 		type : 'button-positive',
 		content : "<i class='icon ion-chatbubbles'></i>",
 		tap : function() {
-			// go to event chat room page
+			$state.go("eventChatRoom", {
+				name : $scope.eventName
+			});
 		}
 	} ];
 
