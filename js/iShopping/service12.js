@@ -91,6 +91,30 @@ app.factory('DBManager', function($window, PhoneGap) {
 	            });
         	});
         },
+        // tx.executeSql("UPDATE friends SET name = ?, phone = ?, email = ?, birthday = ?, isMember = ?, eventId = ? where id = ?",
+        // tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER PRIMARY KEY, name TEXT, detail TEXT, date DATE, time TEXT, destination TEXT, latitude REAL, longtitude REAL, mmid INTEGER)", []);
+        /*
+        tx.executeSql("UPDATE friends SET name = ?, phone = ?, email = ?, birthday = ?, isMember = ?, eventId = ? where id = ?",
+                [friend.name, friend.phone, friend.email, friend.birthday, friend.isMember, friend.eventId, friend.id],
+                onSuccess,
+                onError
+            );
+        */
+        updateEvent: function(event, onSuccess, onError) {
+        	PhoneGap.ready(function() {
+	            db.transaction(function(tx) {
+	                tx.executeSql("UPDATE event SET name = ?, detail = ?, date = ?, time = ?, destination = ?, latitude = ?, longtitude = ?, mmid = ? where eid = ?",
+	                	[event.name, event.detail, event.date, event.time, event.destination, event.latitude, event.longtitude, event.mmid, event.eid],
+	                    onSuccess, function (e) {
+	                        console.log('新增任務失敗，原因: ' + e.message);
+	    	            	console.log(JSON.stringify(event));
+	                        (onError || angular.noop)(e);
+	                    }
+	                );
+	            });
+        	});
+        },
+        
         addMessage: function(message, onSuccess, onError) {
         	PhoneGap.ready(function() {
 	            db.transaction(function(tx) {
@@ -164,6 +188,11 @@ app.factory('EventManager', function(DBManager) {
 		},
 		getById: function(eid) {
 			return eventList[eid];
+		},
+		update: function(event, onSuccess, onError) {
+			DBManager.updateEvent(event, function(){
+                (onSuccess || angular.noop)();
+			}, onError);
 		}
 	};
 });

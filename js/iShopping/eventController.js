@@ -46,6 +46,16 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 			$scope.gatheringPointButonText = "設定集合點";
 			buttonCSS.tap = function() {
 				console.log("now is edit");
+				var event = {
+						eid : $scope.event.eid,
+						name : $scope.event.name,
+						detail : $scope.event.detail,
+						date : $scope.event.date,
+						time : $scope.event.time,
+						latitude : $scope.event.latitude,
+						longtitude : $scope.event.longtitude
+					};
+				EventManager.update(event);
 				$state.go('event', {
 					state : 'VIEW'
 				});
@@ -73,7 +83,7 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 		// $scope.event.longtitude = 123; // 東西經度 0-180
 		$scope.event.latitude = $stateParams.latitude;
 		$scope.event.longtitude = $stateParams.longtitude;
-		
+		$scope.event.eid = $stateParams.eid;
 		
 		$scope.gatheringPointString = "(" + $scope.event.latitude + ", "
 				+ $scope.event.longtitude + ")";
