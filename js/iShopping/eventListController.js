@@ -31,7 +31,8 @@ app.controller('EventListController', function($scope, ChatManager, $stateParams
 	                   },];
 
 	$scope.init = function() {
-
+		var host = SettingManager.getHost();
+		console.log(JSON.stringify(host));
 	};
 	
 	
