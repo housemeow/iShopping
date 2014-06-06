@@ -1,5 +1,9 @@
 app.controller('GatheringPointMapController', function($scope, $stateParams,
 		$state, Geolocation, $window) {
+
+
+	var origin = null;
+	
 	$scope.refreshState = function(state) {
 		var buttonCSS = {
 			type : 'button-positive',
@@ -13,14 +17,18 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 			$scope.title = "設定集合點";
 			buttonCSS.tap = function() {
 				$state.go('event', {
-					state : 'CREATE'
+					state : 'CREATE',
+					latitude : origin.k,
+					longtitude : origin.A
 				});
 			};
 		} else if ($scope.state == "EDIT") {
 			$scope.title = "設定集合點";
 			buttonCSS.tap = function() {
 				$state.go('event', {
-					state : 'EDIT'
+					state : 'EDIT',
+					latitude : origin.k,
+					longtitude : origin.A
 				});
 			};
 		}
@@ -29,16 +37,14 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 		} else {
 			$scope.setGatheringPointButton = [ buttonCSS ];
 		}
-		$scope.apply();
 	};
-
-	var origin = null;
 
 	var initMap = function(geoposition) {
 		console.log(geoposition);
 
-		var origin = new google.maps.LatLng(geoposition.coords.latitude,
+		origin = new google.maps.LatLng(geoposition.coords.latitude,
 				geoposition.coords.longitude);
+		console.log(origin);
 		var mapOptions = {
 			zoom : 13,
 			center : origin,
@@ -84,7 +90,7 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 			searchBox.setBounds(bounds);
 		});
 
-		if (!$scope.state == "VIEW")
+		if ($scope.state != "VIEW")
 		{
 			google.maps.event.addListener(map, 'click', function(event) {
 				placeMarker(event.latLng);

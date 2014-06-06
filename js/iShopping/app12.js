@@ -78,7 +78,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'ChatCtrl'
 	    })
 	    .state('event', {
-	        url: '/event?state',
+	        url: '/eid?state?latitude?longtitude',
             templateUrl: 'templates/iShopping/event.html',
             controller: 'EventController'
 	    })
