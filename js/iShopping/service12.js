@@ -3,13 +3,13 @@ app.factory('DBManager', function($window, PhoneGap) {
     PhoneGap.ready(function() {
         db = $window.sqlitePlugin.openDatabase({name: "BirthdayLineDB"});
         db.transaction(function(tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS friends(id INTEGER PRIMARY KEY ASC, name TEXT UNIQUE, phone TEXT UNIQUE, email TEXT, birthday DATE, isMember BOOLEAN, eventId TEXT default '', longtitude REAL, latitude REAL)", []);
+            tx.executeSql("CREATE TABLE IF NOT EXISTS friends(id INTEGER PRIMARY KEY ASC, name TEXT UNIQUE, phone TEXT UNIQUE, email TEXT, birthday DATE, isMember BOOLEAN, eventId TEXT default '')", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS friendInvitation(smid INTEGER PRIMARY KEY, name TEXT)", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS messages(msgId INTEGER PRIMARY KEY, senderPhone TEXT, receiverPhone TEXT, message TEXT, time DATE, hasRead BOOLEAN)", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER PRIMARY KEY, name TEXT, detail TEXT, date DATE, time DATE, destination TEXT, gatheringPointLon REAL, gatheringPointLat REAL, mmid INTEGER)", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS eventContainMember(eid INTEGER, mid INTEGER)", []);
+            tx.executeSql("CREATE TABLE IF NOT EXISTS messages(msgId INTEGER PRIMARY KEY, senderPhone TEXT, receiverPhone TEXT, message TEXT, time DATE, hasRead BOOLEAN, latitude REAL, longtitude REAL)", []);
+            tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER PRIMARY KEY, name TEXT, detail TEXT, date DATE, time DATE, destination TEXT, latitude REAL, longtitude REAL, mmid INTEGER)", []);
+            tx.executeSql("CREATE TABLE IF NOT EXISTS eventContainMember(eid INTEGER, mid INTEGER,name TEXT, latitude REAL, longtitude REAL)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventInvitation(eid INTEGER, eventName TEXT, inviterName TEXT)", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS eventMessageLog(eid INTEGER, smid INTEGER, messageType TEXT, message TEXT, locationLon REAL, locationLat REAL)", []);
+            tx.executeSql("CREATE TABLE IF NOT EXISTS eventMessageLog(eid INTEGER, smid INTEGER, messageType TEXT, message TEXT, latitude REAL, longtitude REAL)", []);
         });
     });
     
