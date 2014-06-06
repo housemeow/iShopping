@@ -28,6 +28,7 @@ app.controller('EventMapController', function($scope, $stateParams, $state,
 		var anchor = new google.maps.Point(30, 65);
 		var origin = new google.maps.LatLng(geoposition.coords.latitude,
 				geoposition.coords.longitude);
+		
 		var mapOptions = {
 			zoom : 13,
 			center : origin,
@@ -35,7 +36,7 @@ app.controller('EventMapController', function($scope, $stateParams, $state,
 		};
 		var map = new google.maps.Map(document.getElementById('map-canvas'),
 				mapOptions);
-		var marker = new MarkerWithLabel({
+		var markerMe = new MarkerWithLabel({
 			position : origin,
 			labelContent : "我",
 			labelAnchor : anchor,
@@ -44,7 +45,21 @@ app.controller('EventMapController', function($scope, $stateParams, $state,
 				opacity : 0.75
 			}
 		});
-		marker.setMap(map);
+		var gatheringPoint = new google.maps.LatLng(geoposition.coords.latitude,
+				geoposition.coords.longitude);
+		gatheringPoint.k = 25.042482; // 忠孝新生捷運站緯度
+		gatheringPoint.A = 121.532894; // 忠孝新生捷運站經度
+		var markerGatheringPoint = new MarkerWithLabel({
+			position : gatheringPoint,
+			labelContent : "集合點(假)",
+			labelAnchor : anchor,
+			labelClass : "labels",
+			labelStyle : {
+				opacity : 0.75
+			}
+		});
+		markerGatheringPoint.setMap(map);
+		markerMe.setMap(map);
 	};
 
 	$scope.init = function() {
