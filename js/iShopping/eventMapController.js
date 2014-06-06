@@ -1,14 +1,19 @@
-app.controller('EventMapController', function($scope, $stateParams, $state,
+app.controller('EventMapController', function(EventManager, $scope, $stateParams, $state,
 		Geolocation, $window) {
 	$scope.eventName = $stateParams.name;
 	$scope.eid = $stateParams.eid;
+	var event = EventManager.getById($scope.eid);
+	console.log("eventMap event=" + JSON.stringify(event));
+	
+	console.log("eventMap eid=" + $scope.eid);
 
 	$scope.viewEventButton = [ {
 		type : 'button-positive',
 		content : "<i class='icon ion-document-text'></i>",
 		tap : function() {
 			$state.go("event", {
-				state : "VIEW"
+				state : "VIEW",
+				eid : $scope.eid
 			});
 		}
 	} ];

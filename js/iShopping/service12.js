@@ -6,7 +6,7 @@ app.factory('DBManager', function($window, PhoneGap) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS friends(id INTEGER PRIMARY KEY ASC, name TEXT UNIQUE, phone TEXT UNIQUE, email TEXT, birthday DATE, isMember BOOLEAN, eventId TEXT default '')", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS friendInvitation(smid INTEGER PRIMARY KEY, name TEXT)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS messages(msgId INTEGER PRIMARY KEY, senderPhone TEXT, receiverPhone TEXT, message TEXT, time DATE, hasRead BOOLEAN, latitude REAL, longtitude REAL)", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER PRIMARY KEY, name TEXT, detail TEXT, date DATE, time TEXT, destination TEXT, latitude REAL, longtitude REAL, mmid INTEGER)", []);
+            tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, detail TEXT, date DATE, time TEXT, destination TEXT, latitude REAL, longtitude REAL, mmid INTEGER)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventContainMember(eid INTEGER, mid INTEGER,name TEXT, latitude REAL, longtitude REAL)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventInvitation(eid INTEGER, eventName TEXT, inviterName TEXT)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventMessageLog(eid INTEGER, smid INTEGER, messageType TEXT, message TEXT, latitude REAL, longtitude REAL)", []);
@@ -151,7 +151,7 @@ app.factory('EventManager', function(DBManager) {
 		list: function(onSuccess) {
 			DBManager.getEvents(function(tx, res) {
 				for (var i = 0, max = res.rows.length; i < max; i++) {
-					eventList[i] = res.rows.item(i);
+					eventList[res.rows.item(i).eid] = res.rows.item(i);
 				}
 			});
 			onSuccess(eventList);
@@ -161,6 +161,9 @@ app.factory('EventManager', function(DBManager) {
 				eventList.push(event);
                 (onSuccess || angular.noop)();
 			}, onError);
+		},
+		getById: function(eid) {
+			return eventList[eid];
 		}
 	};
 });

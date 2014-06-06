@@ -68,7 +68,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'EventChatRoomController'
 	    })
 	    .state('gatheringPointMap', {
-	        url: '/gatheringPointMap?eid&state',
+	        url: '/gatheringPointMap?state&eid&name&detail&date&time&latitude&longtitude',
             templateUrl: 'templates/iShopping/gatheringPointMap.html',
             controller: 'GatheringPointMapController'
 	    })
@@ -78,7 +78,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'ChatCtrl'
 	    })
 	    .state('event', {
-	        url: '/eid?state?latitude?longtitude',
+	        url: '/event?state&eid&name&detail&date&time&latitude&longtitude',
             templateUrl: 'templates/iShopping/event.html',
             controller: 'EventController'
 	    })
