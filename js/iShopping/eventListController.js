@@ -1,4 +1,4 @@
-app.controller('EventListController', function($scope, ChatManager, $stateParams, FriendManager, SettingManager, iLabMessage, $window, Geolocation, $state){
+app.controller('EventListController', function($scope, ChatManager, EventManager, $stateParams, FriendManager, SettingManager, iLabMessage, $window, Geolocation, $state){
 	$scope.newEventButton = [{
 		type: 'button-positive',
 		content: "<i class='icon ion-plus'></i>",
@@ -8,27 +8,39 @@ app.controller('EventListController', function($scope, ChatManager, $stateParams
 		}
 	}];	
 	
-	$scope.eventList =[
+	$scope.eventList = {};
+	console.log("hello!!!!");
+	EventManager.list(function(list){
+		console.log(JSON.stringify(list));
+		$scope.eventList = list;
+	});
+	
+	var events =[
 	                   {
 	                	   name : "爽歪歪",
-	                	   eid: 1,
+	                	   //eid: 1,
 	                	   date: new Date("2014-06-05")
 	                   },
 	                   {
 	                	   name : "歪歪",
-	                	   eid: 2,
+	                	   //eid: 2,
 	                	   date: new Date("2014-06-18")
 	                   },
 	                   {
 	                	   name : "Qoo",
-	                	   eid: 3,
+	                	   //eid: 3,
 	                	   date: new Date("2014-06-20")
 	                   },
 	                   {
 	                	   name : "拉布拉多",
-	                	   eid: 4,
+	                	   //eid: 4,
 	                	   date: new Date("2014-06-01")
 	                   },];
+	for(var i=0;i<events.length;i++){
+		console.log(JSON.stringify(events[i]));
+		EventManager.add(events[i]);
+	}
+	
 
 	$scope.init = function() {
 		var host = SettingManager.getHost();
