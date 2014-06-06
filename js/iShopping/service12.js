@@ -6,7 +6,7 @@ app.factory('DBManager', function($window, PhoneGap) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS friends(id INTEGER PRIMARY KEY ASC, name TEXT UNIQUE, phone TEXT UNIQUE, email TEXT, birthday DATE, isMember BOOLEAN, eventId TEXT default '')", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS friendInvitation(smid INTEGER PRIMARY KEY, name TEXT)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS messages(msgId INTEGER PRIMARY KEY, senderPhone TEXT, receiverPhone TEXT, message TEXT, time DATE, hasRead BOOLEAN, latitude REAL, longtitude REAL)", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER PRIMARY KEY, name TEXT, detail TEXT, date DATE, time DATE, destination TEXT, latitude REAL, longtitude REAL, mmid INTEGER)", []);
+            tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER PRIMARY KEY, name TEXT, detail TEXT, date DATE, time TEXT, destination TEXT, latitude REAL, longtitude REAL, mmid INTEGER)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventContainMember(eid INTEGER, mid INTEGER,name TEXT, latitude REAL, longtitude REAL)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventInvitation(eid INTEGER, eventName TEXT, inviterName TEXT)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventMessageLog(eid INTEGER, smid INTEGER, messageType TEXT, message TEXT, latitude REAL, longtitude REAL)", []);
@@ -80,8 +80,8 @@ app.factory('DBManager', function($window, PhoneGap) {
         addEvent: function(event, onSuccess, onError) {
         	PhoneGap.ready(function() {
 	            db.transaction(function(tx) {
-	                tx.executeSql("INSERT INTO event(name, detail, date, destination, latitude, longtitude, mmid) VALUES (?, ?, ?, ?, ?, ?, ?)",
-	                	[event.name, event.detail, event.date, event.destination, event.latitude, event.longtitude, event.mmid],
+	                tx.executeSql("INSERT INTO event(name, detail, date, time, destination, latitude, longtitude, mmid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+	                	[event.name, event.detail, event.date, event.time, event.destination, event.latitude, event.longtitude, event.mmid],
 	                    onSuccess, function (e) {
 	                        console.log('新增任務失敗，原因: ' + e.message);
 	    	            	console.log(JSON.stringify(event));

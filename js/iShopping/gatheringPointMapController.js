@@ -18,6 +18,10 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 			buttonCSS.tap = function() {
 				$state.go('event', {
 					state : 'CREATE',
+					name : $stateParams.name,
+					detail : $stateParams.detail,
+					date : $stateParams.date,
+					time : $stateParams.time,
 					latitude : origin.k,
 					longtitude : origin.A
 				});
