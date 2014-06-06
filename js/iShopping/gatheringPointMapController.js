@@ -84,10 +84,13 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 			searchBox.setBounds(bounds);
 		});
 
-		google.maps.event.addListener(map, 'click', function(event) {
-			placeMarker(event.latLng);
-		});
-
+		if (!$scope.state == "VIEW")
+		{
+			google.maps.event.addListener(map, 'click', function(event) {
+				placeMarker(event.latLng);
+			});
+		}
+		
 		function placeMarker(location) {
 			origin = location;
 			marker.setPosition(location);
