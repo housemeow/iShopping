@@ -1,4 +1,6 @@
 app.controller('EventListController', function($scope, ChatManager, EventManager, $stateParams, FriendManager, SettingManager, iLabMessage, $window, Geolocation, $state){
+	$scope.eventList = null;
+	
 	$scope.newEventButton = [{
 		type: 'button-positive',
 		content: "<i class='icon ion-plus'></i>",
@@ -6,19 +8,18 @@ app.controller('EventListController', function($scope, ChatManager, EventManager
 		{
 			$state.go('event', {state: 'CREATE'});
 		}
-	}];	
-	
-	$scope.eventList = {};
-	
+	}];
 	
 	$scope.init = function() {
 		var host = SettingManager.getHost();
 		console.log(JSON.stringify(host));
-		EventManager.list(function(list){
-			
-			$scope.eventList = list;
-		});
+		$scope.eventList = EventManager.list();
 		console.log("event list ctrl's list" + JSON.stringify($scope.eventList));
 		console.log("event list count" + $scope.eventList.length);
+	};
+	
+	$scope.getEventListCount = function()
+	{
+		return EventManager.count();
 	};
 });

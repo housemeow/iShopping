@@ -170,20 +170,33 @@ app.factory('DBManager', function($window, PhoneGap) {
 });
 
 app.factory('EventManager', function(DBManager) {
-	var eventList = [];
+	var eventList = {};
+	DBManager.getEvents(function(tx, res) {
+		for (var i = 0, max = res.rows.length; i < max; i++) {
+			eventList[res.rows.item(i).eid] = res.rows.item(i);
+			console.log("event list add Event:" + JSON.stringify(res.rows.item(i)));
+		}
+	});
 	return {
-		list: function(onSuccess) {
+		list: function() {
+			/*
 			DBManager.getEvents(function(tx, res) {
 				for (var i = 0, max = res.rows.length; i < max; i++) {
-					eventList[res.rows.item(i)] = res.rows.item(i);
+					eventList[res.rows.item(i).eid] = res.rows.item(i);
 					console.log("event list add Event:" + JSON.stringify(res.rows.item(i)));
 				}
 			});
 			onSuccess(eventList);
+			*/
+			return eventList;
+		},
+		count: function() {
+			return Object.keys(eventList).length;
 		},
 		add: function(event, onSuccess, onError) {
 			DBManager.addEvent(event, function(){
-				eventList.push(event);
+				// eventList.push(event);
+				eventList[event.eid] = event;
                 (onSuccess || angular.noop)();
 			}, onError);
 		},

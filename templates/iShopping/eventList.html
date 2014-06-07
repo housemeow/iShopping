@@ -2,11 +2,11 @@
 <ion-content has-header="true" has-tabs="true" has-bouncing="true">
 <div class="list">
 
-	<div ng-show="eventList.length==0" class="item item-icon-left">
+	<div ng-show="getEventListCount() == 0" class="item item-icon-left">
 		<i class="icon ion-ios7-calendar-outline"></i> 活動列表 <span
 			class="item-note"> 沒有任何活動，快來新增一個吧！ </span>
 	</div>
-	<div ng-show="eventList.length!=0">
+	<div ng-show="getEventListCount() != 0">
 		<a class="item"
 			href="#/eventMap?eid={{event.eid}}&name={{event.name}}"
 			ng-repeat="event in eventList"
