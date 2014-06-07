@@ -175,7 +175,8 @@ app.factory('EventManager', function(DBManager) {
 		list: function(onSuccess) {
 			DBManager.getEvents(function(tx, res) {
 				for (var i = 0, max = res.rows.length; i < max; i++) {
-					eventList[res.rows.item(i).eid] = res.rows.item(i);
+					eventList[res.rows.item(i)] = res.rows.item(i);
+					console.log("event list add Event:" + JSON.stringify(res.rows.item(i)));
 				}
 			});
 			onSuccess(eventList);

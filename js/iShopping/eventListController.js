@@ -9,13 +9,16 @@ app.controller('EventListController', function($scope, ChatManager, EventManager
 	}];	
 	
 	$scope.eventList = {};
-	EventManager.list(function(list){
-		console.log(JSON.stringify(list));
-		$scope.eventList = list;
-	});
+	
 	
 	$scope.init = function() {
 		var host = SettingManager.getHost();
 		console.log(JSON.stringify(host));
+		EventManager.list(function(list){
+			
+			$scope.eventList = list;
+		});
+		console.log("event list ctrl's list" + JSON.stringify($scope.eventList));
+		console.log("event list count" + $scope.eventList.length);
 	};
 });
