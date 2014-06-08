@@ -35,7 +35,8 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 					latitude : $scope.event.latitude,
 					longtitude : $scope.event.longtitude
 				};
-				console.log("add Event:" + JSON.stringify(event));
+				console.log("動作 - click CREATE button:");
+				console.log("event controller add Event:" + JSON.stringify(event));
 				EventManager.add(event);
 				$state.go('tab.eventList');
 			};

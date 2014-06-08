@@ -6,20 +6,20 @@ app.controller('EventListController', function($scope, ChatManager, EventManager
 		content: "<i class='icon ion-plus'></i>",
 		tap: function() 
 		{
+			console.log("流程 - eventListController go to eventController create state");
 			$state.go('event', {state: 'CREATE'});
 		}
 	}];
 	
 	$scope.init = function() {
-		var host = SettingManager.getHost();
-		console.log(JSON.stringify(host));
+		console.log("流程 - eventListController init");
 		$scope.eventList = EventManager.list();
-		console.log("event list ctrl's list" + JSON.stringify($scope.eventList));
-		console.log("event list count" + $scope.eventList.length);
+		console.log("流程 - eventListController eventList after get events: " + JSON.stringify($scope.eventList));
 	};
 	
 	$scope.getEventListCount = function()
 	{
+		console.log("流程 - eventListController getEventListCount");
 		return EventManager.count();
 	};
 });
