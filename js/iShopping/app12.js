@@ -52,6 +52,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
 	        }
 	    })
+	    .state('selectFriends', {
+	        url: '/selectFriends',
+            templateUrl: 'templates/iShopping/selectFriends.html',
+            controller: 'SelectFriendsController'
+	    })
 	    .state('eventMap', {
 	        url: '/eventMap?eid&name',
             templateUrl: 'templates/iShopping/eventMap.html',

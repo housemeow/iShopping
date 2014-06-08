@@ -92,6 +92,11 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 
 	};
 
+	$scope.clickAddFriendButton = function(){
+		$state.go('selectFriends');
+	};
+	
+	
 	$scope.clickGatheringPointButton = function() {
 		// go to map page and pass state
 		$state.go('gatheringPointMap', {

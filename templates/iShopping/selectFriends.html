@@ -1,0 +1,12 @@
+<ion-view title="'選擇好友喔！'" right-buttons="addFriendsButton"
+	ng-init="init()"> <ion-content has-header="true"
+	has-tabs="true" has-bouncing="true">
+<ul class="list">
+  <li class="item item-checkbox" ng-repeat="friend in friends">
+    <label class="checkbox">
+      <input type="checkbox" ng-model="friend.enabled">
+    </label>
+    {{friend.name}}
+  </li>
+</ul>
+</ion-content> </ion-view>

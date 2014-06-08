@@ -22,6 +22,10 @@
 			    <input type="time" ng-model="event.time" ng-disabled="state == 'VIEW'">
 			</label>
 			<label class="item item-input">
+			    <span class="input-label">加入朋友: </span>
+				<button ng-click="clickAddFriendButton()"class="button button-positive">這邊要放加了幾個好友</button>
+			</label>
+			<label class="item item-input">
 			    <span class="input-label">集合點:({{event.latitude}}, {{event.longitude}})</span>
 			</label>
 			<button ng-click="clickGatheringPointButton()"class="button button-positive">{{gatheringPointButonText}}</button>
