@@ -8,13 +8,10 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 		if ($scope.state == "VIEW") {
 			$scope.title = "活動詳細資料";
 			$scope.gatheringPointButonText = "檢視集合點";
-
-
 			console.log(JSON.stringify(event));
 			var event = EventManager.getById($scope.event.eid);
 			console.log(JSON.stringify(event));
 			$scope.event = event;
-			
 			buttonCSS.tap = function() {
 				console.log("now is view");
 				$state.go('event', {
@@ -41,7 +38,6 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 				$state.go('tab.eventList');
 			};
 			buttonCSS.content = "<i class='icon ion-checkmark'></i>";
-
 		} else if ($scope.state == "EDIT") {
 			$scope.title = "編輯活動";
 			$scope.gatheringPointButonText = "設定集合點";
@@ -69,11 +65,6 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 
 	$scope.event = {};
 	$scope.init = function() {
-
-		$scope.eid = $stateParams.eid;
-		console.log("event eid=" + $scope.eid);
-		
-		
 		$scope.event.eid = $stateParams.eid;
 		$scope.event.name = $stateParams.name;//"逛夜市";
 		$scope.event.detail = $stateParams.detail;//"帶兩百塊";
@@ -84,10 +75,8 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 		// $scope.event.longtitude = 123; // 東西經度 0-180
 		$scope.event.latitude = $stateParams.latitude;
 		$scope.event.longtitude = $stateParams.longtitude;
-		$scope.event.eid = $stateParams.eid;
-		
-		$scope.gatheringPointString = "(" + $scope.event.latitude + ", "
-				+ $scope.event.longtitude + ")";
+		//$scope.gatheringPointString = "(" + $scope.event.latitude + ", "
+		//		+ $scope.event.longtitude + ")";
 		$scope.state = $stateParams.state;
 		$scope.refreshState($scope.state);
 
