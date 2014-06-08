@@ -18,6 +18,7 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 			buttonCSS.tap = function() {
 				$state.go('event', {
 					state : 'CREATE',
+					eid : $stateParams.eid,
 					name : $stateParams.name,
 					detail : $stateParams.detail,
 					destination : $stateParams.destination,
@@ -32,6 +33,7 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 			buttonCSS.tap = function() {
 				$state.go('event', {
 					state : 'EDIT',
+					eid : $stateParams.eid,
 					latitude : origin.k,
 					longtitude : origin.A
 				});
@@ -47,12 +49,13 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 	var initMap = function(geoposition) {
 		console.log(geoposition);
 
-		origin = new google.maps.LatLng(geoposition.coords.latitude,
-				geoposition.coords.longitude);
-		console.log(origin);
+
+        var mapCenter= new google.maps.LatLng(geoposition.coords.latitude,
+                           geoposition.coords.longitude);
+
 		var mapOptions = {
 			zoom : 13,
-			center : origin,
+			center : mapCenter,
 			disableDefaultUI : true
 		};
 		var map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -60,7 +63,6 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 
 		var anchor = new google.maps.Point(30, 65);
 		var marker = new MarkerWithLabel({
-			position : origin,
 			labelContent : "集合點",
 			labelAnchor : anchor,
 			labelClass : "labels",
@@ -68,6 +70,12 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 				opacity : 0.75
 			}
 		});
+		console.log(origin);
+		if($stateParams.latitude){
+			origin = new google.maps.LatLng($stateParams.latitude,
+				$stateParams.longitude);
+			marker.setPosition(origin);
+		}
 		marker.setMap(map);
 
 		// 建立搜尋列的UI

@@ -21,16 +21,6 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 			$scope.title = "建立活動";
 			$scope.gatheringPointButonText = "設定集合點";
 			buttonCSS.tap = function() {
-				/*
-				var event = {
-					name : $scope.event.name,
-					detail : $scope.event.detail,
-					destination : $scope.event.destination,
-					date : $scope.event.date,
-					time : $scope.event.time,
-					latitude : $scope.event.latitude,
-					longtitude : $scope.event.longtitude
-				};*/
 				EventManager.add($scope.event);
 				$state.go('tab.eventList');
 			};
@@ -40,19 +30,9 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 			$scope.gatheringPointButonText = "設定集合點";
 			var event = EventManager.getById($scope.event.eid);
 			$scope.event = event;
+			$scope.event.latitude = $stateParams.latitude;
+			$scope.event.longtitude = $stateParams.longtitude;
 			buttonCSS.tap = function() {
-				/*
-				var event = {
-						eid : $scope.event.eid,
-						name : $scope.event.name,
-						detail : $scope.event.detail,
-						destination : $scope.event.destination,
-						date : $scope.event.date,
-						time : $scope.event.time,
-						latitude : $scope.event.latitude,
-						longtitude : $scope.event.longtitude
-					};
-					*/
 				EventManager.update($scope.event);
 				$state.go('event', {
 					state : 'VIEW',
