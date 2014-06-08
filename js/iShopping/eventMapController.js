@@ -50,24 +50,27 @@ app.controller('EventMapController', function(EventManager, $scope, $stateParams
 				opacity : 0.75
 			}
 		});
-		var gatheringPoint = new google.maps.LatLng(geoposition.coords.latitude,
-				geoposition.coords.longitude);
-		gatheringPoint.k = 25.042482; // 忠孝新生捷運站緯度
-		gatheringPoint.A = 121.532894; // 忠孝新生捷運站經度
+		// gatheringPoint.k = 25.042482; // 忠孝新生捷運站緯度
+		// gatheringPoint.A = 121.532894; // 忠孝新生捷運站經度
 		var markerGatheringPoint = new MarkerWithLabel({
-			position : gatheringPoint,
-			labelContent : "集合點(假)",
+			labelContent : "集合點",
 			labelAnchor : anchor,
 			labelClass : "labels",
 			labelStyle : {
 				opacity : 0.75
 			}
 		});
+		if($scope.event.latitude){
+			var gatheringPoint = new google.maps.LatLng($scope.event.latitude,
+				$scope.event.longitude);
+			markerGatheringPoint.setPosition(gatheringPoint);
+		}
 		markerGatheringPoint.setMap(map);
 		markerMe.setMap(map);
 	};
 
 	$scope.init = function() {
+		$scope.event = EventManager.getById($stateParams.eid);
 		Geolocation.getCurrentPosition(initMap);
 	};
 });
