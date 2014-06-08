@@ -202,7 +202,13 @@ app.factory('EventManager', function(DBManager) {
 		update: function(event, onSuccess, onError) {
 			console.log("流程 - EventManager update");
 			DBManager.updateEvent(event, function(){
+				console.log("this is EventManger update");
+				console.log("this is EventManger update and the event is: " + JSON.stringify(event));
+				console.log("this is EventManger update and the event list is (before): " + JSON.stringify(eventList));
+				console.log("this is EventManger update and the event in list is (before): " + JSON.stringify(eventList[event.eid]));
 				eventList[event.eid] = event;
+				console.log("this is EventManger update and the event in list is (after): " + JSON.stringify(eventList[event.eid]));
+				console.log("this is EventManger update and the event list is: (after)" + JSON.stringify(eventList));
                 (onSuccess || angular.noop)();
 			}, onError);
 		}

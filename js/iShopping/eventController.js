@@ -9,7 +9,19 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 			$scope.title = "活動詳細資料";
 			$scope.gatheringPointButonText = "檢視集合點";
 			var event = EventManager.getById($scope.event.eid);
-			$scope.event = event;
+			//$scope.event = EventManager.getById($scope.event.eid);
+			$scope.event = {};
+			$scope.event.eid = event.eid;
+			$scope.event.name = event.name;
+			$scope.event.detail = event.detail;
+			$scope.event.date = event.date;
+			$scope.event.time = event.time;
+			$scope.event.destination = event.destination;
+			$scope.event.latitude = event.latitude;
+			$scope.event.longtitude = event.longtitude;
+			$scope.event.mmid = event.mmid;
+
+
 			buttonCSS.tap = function() {
 				$state.go('event', {
 					state : 'EDIT',
@@ -29,15 +41,32 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 			$scope.title = "編輯活動";
 			$scope.gatheringPointButonText = "設定集合點";
 			var event = EventManager.getById($scope.event.eid);
-			$scope.event = event;
-			$scope.event.latitude = $stateParams.latitude;
-			$scope.event.longtitude = $stateParams.longtitude;
+			$scope.event = {};
+			$scope.event.eid = event.eid;
+			$scope.event.name = event.name;
+			$scope.event.detail = event.detail;
+			$scope.event.date = event.date;
+			$scope.event.time = event.time;
+			$scope.event.destination = event.destination;
+
+			if($stateParams.latitude!=null){
+				$scope.event.latitude = $stateParams.latitude;
+				$scope.event.longtitude = $stateParams.longtitude;
+			}else{
+				$scope.event.latitude = event.latitude;
+				$scope.event.longtitude = event.longtitude;
+			}
+			$scope.event.mmid = event.mmid;
+
+
 			buttonCSS.tap = function() {
+				console.log("when EDIT state click OK event is: " + JSON.stringify($scope.event));
 				EventManager.update($scope.event);
 				$state.go('event', {
 					state : 'VIEW',
 					eid : $scope.event.eid
 				});
+				console.log("when EDIT state after click OK event is: " + JSON.stringify(EventManager.getById($scope.event.eid)));
 			};
 			buttonCSS.content = "<i class='icon ion-checkmark'></i>";
 		}
