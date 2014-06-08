@@ -2,8 +2,6 @@ app.controller('EventMapController', function(EventManager, $scope, $stateParams
 		Geolocation, $window) {
 	$scope.eventName = $stateParams.name;
 	$scope.eid = $stateParams.eid;
-	var event = EventManager.getById($scope.eid);
-	console.log("eventMap event=" + JSON.stringify(event));
 	
 	console.log("eventMap eid=" + $scope.eid);
 
@@ -50,27 +48,67 @@ app.controller('EventMapController', function(EventManager, $scope, $stateParams
 				opacity : 0.75
 			}
 		});
+		console.log("event in eventMap is: " + JSON.stringify($scope.event));
+		if($scope.event.latitude!=null){
+			console.log("this is : $scope.event.latitude!=null block");
+
 		// gatheringPoint.k = 25.042482; // 忠孝新生捷運站緯度
 		// gatheringPoint.A = 121.532894; // 忠孝新生捷運站經度
-		var markerGatheringPoint = new MarkerWithLabel({
-			labelContent : "集合點",
-			labelAnchor : anchor,
-			labelClass : "labels",
-			labelStyle : {
-				opacity : 0.75
-			}
-		});
-		if($scope.event.latitude){
+
+
+
+			// var gatheringPoint = new google.maps.LatLng($scope.event.latitude,
+			// 	$scope.event.longitude);
+
+
+
+			//var markerGatheringPoint;
+			//  = new MarkerWithLabel({
+			// 	position : gatheringPoint,
+			// 	labelContent : "集合點",
+			// 	labelAnchor : anchor,
+			// 	labelClass : "labels",
+			// 	labelStyle : {
+			// 		opacity : 0.75
+			// 	}
+			// });
 			var gatheringPoint = new google.maps.LatLng($scope.event.latitude,
 				$scope.event.longitude);
-			markerGatheringPoint.setPosition(gatheringPoint);
+
+			var markerGatheringPoint = new MarkerWithLabel({
+				position : gatheringPoint,
+				labelContent : "集合點",
+				labelAnchor : anchor,
+				labelClass : "labels",
+				labelStyle : {
+					opacity : 0.75
+				}
+			});
+
+
+			markerGatheringPoint.setMap(map);
+
+			// gatheringPoint.k = $scope.event.latitude;
+			// gatheringPoint.A = $scope.event.longitude;
+			// markerGatheringPoint.setPosition(gatheringPoint);
 		}
-		markerGatheringPoint.setMap(map);
 		markerMe.setMap(map);
 	};
 
 	$scope.init = function() {
-		$scope.event = EventManager.getById($stateParams.eid);
+		var event = EventManager.getById($stateParams.eid);
+		//$scope.event = EventManager.getById($scope.event.eid);
+		$scope.event = {};
+		$scope.event.eid = event.eid;
+		$scope.event.name = event.name;
+		$scope.event.detail = event.detail;
+		$scope.event.date = event.date;
+		$scope.event.time = event.time;
+		$scope.event.destination = event.destination;
+		$scope.event.latitude = event.latitude;
+		$scope.event.longitude = event.longitude;
+		$scope.event.mmid = event.mmid;
+
 		Geolocation.getCurrentPosition(initMap);
 	};
 });

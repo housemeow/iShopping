@@ -25,7 +25,7 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 					date : $stateParams.date,
 					time : $stateParams.time,
 					latitude : origin.k,
-					longtitude : origin.A
+					longitude : origin.A
 				});
 			};
 		} else if ($scope.state == "EDIT") {
@@ -35,7 +35,7 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 					state : 'EDIT',
 					eid : $stateParams.eid,
 					latitude : origin.k,
-					longtitude : origin.A
+					longitude : origin.A
 				});
 			};
 		}

@@ -18,7 +18,7 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 			$scope.event.time = event.time;
 			$scope.event.destination = event.destination;
 			$scope.event.latitude = event.latitude;
-			$scope.event.longtitude = event.longtitude;
+			$scope.event.longitude = event.longitude;
 			$scope.event.mmid = event.mmid;
 
 
@@ -51,10 +51,10 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 
 			if($stateParams.latitude!=null){
 				$scope.event.latitude = $stateParams.latitude;
-				$scope.event.longtitude = $stateParams.longtitude;
+				$scope.event.longitude = $stateParams.longitude;
 			}else{
 				$scope.event.latitude = event.latitude;
-				$scope.event.longtitude = event.longtitude;
+				$scope.event.longitude = event.longitude;
 			}
 			$scope.event.mmid = event.mmid;
 
@@ -82,11 +82,11 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 		$scope.event.date = $stateParams.date;//new Date('2014-12-18'); // 尚未成功
 		$scope.event.time = $stateParams.time;//'14:00';
 		// $scope.event.latitude = 75; // 南北緯度 0-90
-		// $scope.event.longtitude = 123; // 東西經度 0-180
+		// $scope.event.longitude = 123; // 東西經度 0-180
 		$scope.event.latitude = $stateParams.latitude;
-		$scope.event.longtitude = $stateParams.longtitude;
+		$scope.event.longitude = $stateParams.longitude;
 		//$scope.gatheringPointString = "(" + $scope.event.latitude + ", "
-		//		+ $scope.event.longtitude + ")";
+		//		+ $scope.event.longitude + ")";
 		$scope.state = $stateParams.state;
 		$scope.refreshState($scope.state);
 
@@ -102,7 +102,7 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 			destination : $scope.event.destination,
 			time : $scope.event.time,
 			latitude : $scope.event.latitude,
-			longtitude : $scope.event.longtitude,
+			longitude : $scope.event.longitude,
 			state : $scope.state
 		});
 	};

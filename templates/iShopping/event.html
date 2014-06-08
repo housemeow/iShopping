@@ -22,7 +22,7 @@
 			    <input type="time" ng-model="event.time" ng-disabled="state == 'VIEW'">
 			</label>
 			<label class="item item-input">
-			    <span class="input-label">集合點:({{event.latitude}}, {{event.longtitude}})</span>
+			    <span class="input-label">集合點:({{event.latitude}}, {{event.longitude}})</span>
 			</label>
 			<button ng-click="clickGatheringPointButton()"class="button button-positive">{{gatheringPointButonText}}</button>
 			<button ng-click="clickCancelButton()" ng-show="state == 'EDIT'" class="button button-positive">取消修改</button>
