@@ -31,7 +31,7 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 					latitude : $scope.event.latitude,
 					longtitude : $scope.event.longtitude
 				};*/
-				EventManager.add(event);
+				EventManager.add($scope.event);
 				$state.go('tab.eventList');
 			};
 			buttonCSS.content = "<i class='icon ion-checkmark'></i>";
