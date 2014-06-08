@@ -117,7 +117,7 @@ app.factory('DBManager', function($window, PhoneGap) {
         	PhoneGap.ready(function() {
 	            db.transaction(function(tx) {
 	                tx.executeSql("INSERT INTO messages(msgId, senderPhone, receiverPhone, message, time, hasRead) VALUES (?, ?, ?, ?, ?, ?)",
-	                	[message.msgId, message.senderPhone, message.receiverPhone, message.message, message.time, message.hasRead],
+	                	[message.msgId, message.senderPhone, message.receiverPhone, message.message.text, message.time, message.hasRead],
 	                    onSuccess, function (e) {
 	                        console.log('新增朋友失敗，原因: ' + e.message);
 	    	            	console.log(JSON.stringify(friend));

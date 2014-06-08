@@ -2,11 +2,12 @@ app.controller('ChatCtrl', function($scope, ChatManager, $stateParams, FriendMan
 	$scope.phone = $stateParams.phone;
 	$scope.chatMessage = {};
 	$scope.chatMessage.text = $stateParams.defaultMessage ? $stateParams.defaultMessage : "";
-	$scope.messages = ChatManager.get($scope.phone);//[{senderPhone:"0922110002",receiverPhone:"0922110002",hasRead:true,message:"hi"}];
+	$scope.messages = ChatManager.get($scope.phone);// [{senderPhone:"0922110002",receiverPhone:"0922110002",hasRead:true,message:"hi"}];
 	$scope.friendName = FriendManager.getByPhone($scope.phone).name;
 	$scope.hostPhone = SettingManager.getHost().phone;;
 	
 	$scope.$on('receivedMessage', function(event, message) {
+		console.log("received meaage = " + JSON.stringify(message));
 		if (message.hasRead) {
 			$scope.$apply();
 		} else {
@@ -26,11 +27,16 @@ app.controller('ChatCtrl', function($scope, ChatManager, $stateParams, FriendMan
 			console.log('不能發送空訊息');
 			return;
 		}
+		var textJSON = JSON.stringify({
+			type: "friendMessage",
+			text:$scope.chatMessage.text
+		});
 		var message = {
         	senderPhone: $scope.hostPhone,
             receiverPhone: $scope.phone,
-            message: $scope.chatMessage.text
+            message: textJSON
         };
+		console.log("send meaage = " + JSON.stringify(message));
 		iLabMessage.sendMessage(message);
 		$scope.chatMessage.text = "";
 	};

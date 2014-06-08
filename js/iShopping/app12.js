@@ -210,23 +210,28 @@ app.run(function(DBManager, SettingManager, PushNotificationsFactory, iLabMessag
 	$window.receiveMessage = function(payload) {
 		console.log('收到一則新訊息: ' + payload);
 		var message = JSON.parse(payload);
+		message.message = JSON.parse(message.message);
+		console.log("messge:" + JSON.stringify(message));
 		if(!message)
 			return;
 		var friend = FriendManager.getByPhone(message.senderPhone);
 		if (friend || host.phone == message.senderPhone || host.publisherId == message.senderPhone) {
 			iLabMessage.resetCounter(host.phone);
 			console.log('receiveMessage: 發訊者是朋友,或是我,或是消息發布者 ,  hasRead:' + message.hasRead);
-			if (!message.hasRead){			
-				ChatManager.add(message, function() {
-					$rootScope.$broadcast('receivedMessage', message);
-					$rootScope.$apply();
-				});
-			}
-			else {
-				ChatManager.read(message, function() {
-					$rootScope.$broadcast('receivedMessage',message);
-					$rootScope.$apply();
-				});
+			if(message.message.type == "friendMessage")
+			{
+				if (!message.hasRead){ //別人發的訊息	
+					ChatManager.add(message, function() {
+						$rootScope.$broadcast('receivedMessage', message);
+						$rootScope.$apply();
+					});
+				}
+				else { // 自己發的訊息
+					ChatManager.read(message, function() {
+						$rootScope.$broadcast('receivedMessage',message);
+						$rootScope.$apply();
+					});
+				}
 			}
 		} else console.log('receiveMessage: 發訊者來路不明');
 	};

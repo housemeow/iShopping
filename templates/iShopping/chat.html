@@ -17,7 +17,7 @@
 		                <div ng-class="message.senderPhone == hostPhone ? 'byMe' : ''">
 		                	<i class="icon ion-ios7-chatbubble" ng-show="!hasLocation(message)"></i>
 		                	<i class="icon ion-map" ng-show="hasLocation(message)"></i>
-			                <h2 ng-class="message.hasRead && message.senderPhone == hostPhone ? 'positive' : ''">{{message.message | removeLocation}}</h2>
+			                <h2 ng-class="message.hasRead && message.senderPhone == hostPhone ? 'positive' : ''">{{message.message.text | removeLocation}}</h2>
 		                <p>{{message.time | fromNow}} {{message.hasRead && message.senderPhone == hostPhone ? '已讀' : ''}}</p>
 				    </div>
 	        	</div>
