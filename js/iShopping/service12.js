@@ -202,8 +202,9 @@ app.factory('EventManager', function(DBManager) {
 		update: function(event, onSuccess, onError) {
 			console.log("流程 - EventManager update");
 			DBManager.updateEvent(event, function(){
+				eventList[event.eid] = event;
                 (onSuccess || angular.noop)();
-			}, onError);r
+			}, onError);
 		}
 	};
 });

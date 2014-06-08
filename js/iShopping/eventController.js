@@ -8,14 +8,12 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 		if ($scope.state == "VIEW") {
 			$scope.title = "活動詳細資料";
 			$scope.gatheringPointButonText = "檢視集合點";
-			console.log(JSON.stringify(event));
 			var event = EventManager.getById($scope.event.eid);
-			console.log(JSON.stringify(event));
 			$scope.event = event;
 			buttonCSS.tap = function() {
-				console.log("now is view");
 				$state.go('event', {
-					state : 'EDIT'
+					state : 'EDIT',
+					eid : $scope.event.eid
 				});
 			};
 			buttonCSS.content = "<i class='icon ion-edit'></i>";
@@ -23,6 +21,7 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 			$scope.title = "建立活動";
 			$scope.gatheringPointButonText = "設定集合點";
 			buttonCSS.tap = function() {
+				/*
 				var event = {
 					name : $scope.event.name,
 					detail : $scope.event.detail,
@@ -31,9 +30,7 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 					time : $scope.event.time,
 					latitude : $scope.event.latitude,
 					longtitude : $scope.event.longtitude
-				};
-				console.log("動作 - click CREATE button:");
-				console.log("event controller add Event:" + JSON.stringify(event));
+				};*/
 				EventManager.add(event);
 				$state.go('tab.eventList');
 			};
@@ -41,25 +38,29 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 		} else if ($scope.state == "EDIT") {
 			$scope.title = "編輯活動";
 			$scope.gatheringPointButonText = "設定集合點";
+			var event = EventManager.getById($scope.event.eid);
+			$scope.event = event;
 			buttonCSS.tap = function() {
-				console.log("now is edit");
+				/*
 				var event = {
 						eid : $scope.event.eid,
 						name : $scope.event.name,
 						detail : $scope.event.detail,
+						destination : $scope.event.destination,
 						date : $scope.event.date,
 						time : $scope.event.time,
 						latitude : $scope.event.latitude,
 						longtitude : $scope.event.longtitude
 					};
-				EventManager.update(event);
+					*/
+				EventManager.update($scope.event);
 				$state.go('event', {
-					state : 'VIEW'
+					state : 'VIEW',
+					eid : $scope.event.eid
 				});
 			};
 			buttonCSS.content = "<i class='icon ion-checkmark'></i>";
 		}
-		console.log($scope.state);
 		$scope.eventButton = [ buttonCSS ];
 	};
 
