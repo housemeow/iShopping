@@ -1,9 +1,8 @@
 app.controller('GatheringPointMapController', function($scope, $stateParams,
 		$state, Geolocation, $window) {
 
-
 	var origin = null;
-	
+
 	$scope.refreshState = function(state) {
 		var buttonCSS = {
 			type : 'button-positive',
@@ -25,7 +24,8 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 					date : $stateParams.date,
 					time : $stateParams.time,
 					latitude : origin.k,
-					longitude : origin.A
+					longitude : origin.A,
+					members : $stateParams.members
 				});
 			};
 		} else if ($scope.state == "EDIT") {
@@ -49,9 +49,8 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 	var initMap = function(geoposition) {
 		console.log(geoposition);
 
-
-        var mapCenter= new google.maps.LatLng(geoposition.coords.latitude,
-                           geoposition.coords.longitude);
+		var mapCenter = new google.maps.LatLng(geoposition.coords.latitude,
+				geoposition.coords.longitude);
 
 		var mapOptions = {
 			zoom : 13,
@@ -71,9 +70,9 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 			}
 		});
 		console.log(origin);
-		if($stateParams.latitude){
+		if ($stateParams.latitude) {
 			origin = new google.maps.LatLng($stateParams.latitude,
-				$stateParams.longitude);
+					$stateParams.longitude);
 			marker.setPosition(origin);
 		}
 		marker.setMap(map);
@@ -103,13 +102,12 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 			searchBox.setBounds(bounds);
 		});
 
-		if ($scope.state != "VIEW")
-		{
+		if ($scope.state != "VIEW") {
 			google.maps.event.addListener(map, 'click', function(event) {
 				placeMarker(event.latLng);
 			});
 		}
-		
+
 		function placeMarker(location) {
 			origin = location;
 			marker.setPosition(location);

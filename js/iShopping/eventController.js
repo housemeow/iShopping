@@ -74,26 +74,37 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 	};
 
 	$scope.event = {};
-	$scope.init = function() {
-		$scope.event.eid = $stateParams.eid;
-		$scope.event.name = $stateParams.name;//"逛夜市";
-		$scope.event.detail = $stateParams.detail;//"帶兩百塊";
-		$scope.event.destination = $stateParams.destination;//"士林夜市";
-		$scope.event.date = $stateParams.date;//new Date('2014-12-18'); // 尚未成功
-		$scope.event.time = $stateParams.time;//'14:00';
-		// $scope.event.latitude = 75; // 南北緯度 0-90
-		// $scope.event.longitude = 123; // 東西經度 0-180
-		$scope.event.latitude = $stateParams.latitude;
-		$scope.event.longitude = $stateParams.longitude;
-		//$scope.gatheringPointString = "(" + $scope.event.latitude + ", "
-		//		+ $scope.event.longitude + ")";
-		$scope.state = $stateParams.state;
-		$scope.refreshState($scope.state);
-
+	
+	$scope.getSelectedFriendsCount = function(){
+		var count=0;
+		if($scope.event.members!=null){
+			var members = JSON.parse($scope.event.members);
+			console.log("get selectedFriendCount, members = " + JSON.stringify(members));
+			var i;
+			for(i=0;i<members.length;i++){
+				if(members[i].enabled){
+					count++;
+				}
+			}
+		}
+		return count;
 	};
+	
+	
 
 	$scope.clickAddFriendButton = function(){
-		$state.go('selectFriends');
+		$state.go('selectFriends', {
+			eid : $scope.event.eid,
+			name : $scope.event.name,
+			detail : $scope.event.detail,
+			date : $scope.event.date,
+			destination : $scope.event.destination,
+			time : $scope.event.time,
+			latitude : $scope.event.latitude,
+			longitude : $scope.event.longitude,
+			state : $scope.state,
+			members :$scope.event.members
+		});
 	};
 	
 	
@@ -108,7 +119,8 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 			time : $scope.event.time,
 			latitude : $scope.event.latitude,
 			longitude : $scope.event.longitude,
-			state : $scope.state
+			state : $scope.state,
+			members :$scope.event.members
 		});
 	};
 
@@ -116,5 +128,25 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 		$state.go('event', {
 			state : 'VIEW'
 		});
+	};
+	
+	$scope.init = function() {
+		$scope.event.eid = $stateParams.eid;
+		$scope.event.name = $stateParams.name;//"逛夜市";
+		$scope.event.detail = $stateParams.detail;//"帶兩百塊";
+		$scope.event.destination = $stateParams.destination;//"士林夜市";
+		$scope.event.date = $stateParams.date;//new Date('2014-12-18'); // 尚未成功
+		$scope.event.time = $stateParams.time;//'14:00';
+		// $scope.event.latitude = 75; // 南北緯度 0-90
+		// $scope.event.longitude = 123; // 東西經度 0-180
+		$scope.event.latitude = $stateParams.latitude;
+		$scope.event.longitude = $stateParams.longitude;
+		//$scope.gatheringPointString = "(" + $scope.event.latitude + ", "
+		//		+ $scope.event.longitude + ")";
+		$scope.state = $stateParams.state;
+		$scope.event.members = $stateParams.members;
+		$scope.event.selectedMemberCount = $scope.getSelectedFriendsCount();
+		console.log("$scope.event = " + JSON.stringify($scope.event));
+		$scope.refreshState($scope.state);
 	};
 });

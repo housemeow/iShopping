@@ -52,11 +52,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
 	        }
 	    })
-	    .state('selectFriends', {
-	        url: '/selectFriends',
-            templateUrl: 'templates/iShopping/selectFriends.html',
-            controller: 'SelectFriendsController'
-	    })
 	    .state('eventMap', {
 	        url: '/eventMap?eid&name',
             templateUrl: 'templates/iShopping/eventMap.html',
@@ -72,8 +67,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/iShopping/eventChatRoom.html',
             controller: 'EventChatRoomController'
 	    })
+	    .state('event', {
+	        url: '/event?state&eid&name&detail&destination&date&time&latitude&longitude&members',
+            templateUrl: 'templates/iShopping/event.html',
+            controller: 'EventController'
+	    })
+	    .state('selectFriends', {
+	        url: '/selectFriends?state&eid&name&detail&destination&date&time&latitude&longitude&members',
+            templateUrl: 'templates/iShopping/selectFriends.html',
+            controller: 'SelectFriendsController'
+	    })
 	    .state('gatheringPointMap', {
-	        url: '/gatheringPointMap?state&eid&name&detail&destination&date&time&latitude&longitude',
+	        url: '/gatheringPointMap?state&eid&name&detail&destination&date&time&latitude&longitude&members',
             templateUrl: 'templates/iShopping/gatheringPointMap.html',
             controller: 'GatheringPointMapController'
 	    })
@@ -81,11 +86,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	        url: '/chat?phone&defaultMessage',
             templateUrl: 'templates/iShopping/chat.html',
             controller: 'ChatCtrl'
-	    })
-	    .state('event', {
-	        url: '/event?state&eid&name&detail&destination&date&time&latitude&longitude',
-            templateUrl: 'templates/iShopping/event.html',
-            controller: 'EventController'
 	    })
 	    .state('map', {
 	        url: '/map?latitude&longitude&friendName&isMe',
