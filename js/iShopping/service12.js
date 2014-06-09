@@ -198,7 +198,7 @@ app.factory('EventContainMemberManager', function(DBManager) {
 			}, onError);
 		},
 		getMembersByEid: function(eid) {
-			console.log("流程 - EventManager getById");
+			console.log("流程 - EventContainMemberManager getMembersByEid");
 			var members = [];
 			var i;
 			for(i=0;i<eventContainMembers.length;i++){
@@ -231,6 +231,16 @@ app.factory('EventManager', function(DBManager, EventContainMemberManager, iLabE
 			console.log("流程 - EventManager count");
 			return Object.keys(eventList).length;
 		},
+		addFromExistEid: function(event, onSuccess, onError) {
+			console.log("流程 - EventManager addFromExistEid");
+			console.log("event = " + JSON.stringify(event));
+			DBManager.addEvent(event, function(){
+				console.log("流程 - EventManager DBManager.addEvent");
+				eventList[event.eid] = event;
+				console.log("event.members.length = " + event.members.length);
+                (onSuccess || angular.noop)(eid);
+			}, onError);
+		},
 		add: function(event, onSuccess, onError) {
 			console.log("流程 - EventManager add");
 			iLabEvent.getNewEid(function(eid){
@@ -240,15 +250,7 @@ app.factory('EventManager', function(DBManager, EventContainMemberManager, iLabE
 					console.log("流程 - EventManager DBManager.addEvent");
 					eventList[event.eid] = event;
 					console.log("event.members.length = " + event.members.length);
-					var i;
-					for(i=0;i<event.members.length;i++){
-						console.log("for block");
-						var member = event.members[i];
-						member.eid = eid;
-						console.log("member = " + JSON.stringify(member));
-						EventContainMemberManager.add(member);
-					}
-	                (onSuccess || angular.noop)();
+	                (onSuccess || angular.noop)(eid);
 				}, onError);
 			});
 		},

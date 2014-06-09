@@ -1,6 +1,8 @@
-app.controller('EventController', function($scope, EventManager, ChatManager, $stateParams,
+app.controller('EventController', function($scope, EventContainMemberManager, EventManager, ChatManager, $stateParams,
 		FriendManager, SettingManager, iLabMessage, $window, Geolocation,
 		$state) {
+	$scope.hostPhone = SettingManager.getHost().phone;
+	$scope.hostName = SettingManager.getHost().name;
 	$scope.refreshState = function(state) {
 		var buttonCSS = {
 			type : 'button-positive'
@@ -42,13 +44,45 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 						var eventContainMember = {};
 						eventContainMember.phone = member.phone;
 						eventContainMember.name = member.name;
-						members.push($scope.event.members[i]);
+						members.push(eventContainMember);
 					}
 				}
+				members.push({
+					phone: $scope.hostPhone,
+					name : $scope.hostName});
 				
 				$scope.event.members = members;
 				
-				EventManager.add($scope.event);
+				EventManager.add($scope.event, function(eid){
+					var i;
+					for(i=0;i<members.length;i++){
+						var member = members[i];
+						member.eid = eid;
+						console.log("member = " + JSON.stringify(member));
+						EventContainMemberManager.add(member);
+					}
+					console.log("members = " + JSON.stringify(members));
+					for(i=0;i<members.length;i++){
+						var member = members[i];
+						var textJSON = JSON.stringify({
+							type: "eventCreate",
+							eid: eid,
+							name: $scope.event.name,
+							detail: $scope.event.detail,
+							destination: $scope.event.destination,
+							latitude: $scope.event.latitude,
+							longitude: $scope.event.longitude,
+							members : members
+						});
+						var message = {
+				        	senderPhone: $scope.hostPhone,
+				            receiverPhone: member.phone,
+				            message: textJSON
+				        };
+						console.log("send meaage = " + JSON.stringify(message));
+						iLabMessage.sendMessage(message);
+					}
+				});
 				$state.go('tab.eventList');
 			};
 			buttonCSS.content = "<i class='icon ion-checkmark'></i>";

@@ -193,7 +193,7 @@ app.filter('reverseArray', function () {
     };
 });
 
-app.run(function(DBManager, SettingManager, PushNotificationsFactory, iLabMessage, $window, PhoneGap, $rootScope, FriendManager, ChatManager) {
+app.run(function(DBManager, EventManager, SettingManager, PushNotificationsFactory, iLabMessage, $window, PhoneGap, $rootScope, FriendManager, ChatManager) {
 	Date.prototype.dateDiff = function(objDate, interval){
 	    var dtEnd = new Date(objDate);
 	    if(isNaN(dtEnd)) return undefined;
@@ -237,8 +237,12 @@ app.run(function(DBManager, SettingManager, PushNotificationsFactory, iLabMessag
 						$rootScope.$apply();
 					});
 				}
+			}else if(message.message.type = "eventCreate"){
+				var event = {};
+				EventManager.add(event);
 			}
-		} else console.log('receiveMessage: 發訊者來路不明');
+		}
+		else console.log('receiveMessage: 發訊者來路不明');
 	};
 	
 	if (host.registered) {
