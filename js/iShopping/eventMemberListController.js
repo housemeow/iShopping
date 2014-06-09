@@ -1,23 +1,29 @@
-app.controller('EventMemberListController', function($scope, ChatManager, $stateParams, FriendManager, SettingManager, iLabMessage, $window, Geolocation, $state){
+app.controller('EventMemberListController', function($scope, EventContainMemberManager, ChatManager, $stateParams, FriendManager, SettingManager, iLabMessage, $window, Geolocation, $state){
+	var eid = $stateParams.eid;
+	console.log("eid = " + eid);
 	
-	$scope.eventMemberList =[
-	                   {
-	                	   name : "王小明",
-	                	   mid: 1
-	                   },
-	                   {
-	                	   name : "陳三",
-	                	   mid: 2
-	                   },
-	                   {
-	                	   name : "iShopping",
-	                	   mid: 3,
-	                	   isManager : true
-	                   },
-	                   {
-	                	   name : "洪九",
-	                	   mid: 4
-	                   },];
+	
+	$scope.eventMemberList = EventContainMemberManager.getMembersByEid(eid);
+		
+		
+//		[
+//	                   {
+//	                	   name : "王小明",
+//	                	   mid: 1
+//	                   },
+//	                   {
+//	                	   name : "陳三",
+//	                	   mid: 2
+//	                   },
+//	                   {
+//	                	   name : "iShopping",
+//	                	   mid: 3,
+//	                	   isManager : true
+//	                   },
+//	                   {
+//	                	   name : "洪九",
+//	                	   mid: 4
+//	                   },];
 
 	$scope.init = function() {
 

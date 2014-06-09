@@ -65,6 +65,16 @@ app.factory('DBManager', function($window, PhoneGap) {
             	});
             });
         },
+        getEventContainMembers: function (onSuccess, onError) {
+        	PhoneGap.ready(function() {
+        		db.transaction(function(tx) {
+        			tx.executeSql("SELECT * FROM eventContainMember", [],
+	        			onSuccess,
+        				onError
+    				);
+            	});
+            });
+        },
         
         getEvents: function (onSuccess, onError) {
         	console.log("流程 - DBManager getEvents");
@@ -187,6 +197,11 @@ app.factory('DBManager', function($window, PhoneGap) {
 app.factory('EventContainMemberManager', function(DBManager) {
 	console.log("流程 - EventContainMemberManager");
 	var eventContainMembers = [];
+	DBManager.getEventContainMembers(function(tx, res) {
+		for (var i = 0, max = res.rows.length; i < max; i++) {
+			eventContainMembers.push(res.rows.item(i));
+		}
+	});
 	return {
 		add: function(eventContainMember, onSuccess, onError) {
 			console.log("流程 - EventContainMemberManager add");
@@ -202,7 +217,9 @@ app.factory('EventContainMemberManager', function(DBManager) {
 			var members = [];
 			var i;
 			for(i=0;i<eventContainMembers.length;i++){
+				console.log("eventContainMembers[i]=" + JSON.stringify(eventContainMembers[i]));
 				if(eventContainMembers[i].eid == eid){
+					console.log("2");
 					members.push(eventContainMembers[i]);
 				}
 			}

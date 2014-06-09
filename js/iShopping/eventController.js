@@ -37,16 +37,28 @@ app.controller('EventController', function($scope, EventContainMemberManager, Ev
 			buttonCSS.tap = function() {
 				$scope.event.members = JSON.parse($scope.event.members);
 				var members = [];
-				var i;
-				for(i=0;i<$scope.event.members.length;i++){
-					var member = $scope.event.members[i]; 
-					if(member.enabled){
-						var eventContainMember = {};
-						eventContainMember.phone = member.phone;
-						eventContainMember.name = member.name;
-						members.push(eventContainMember);
-					}
+				for (var key in $scope.event.members) {
+				    if ($scope.event.members.hasOwnProperty(key)){
+				        var member = $scope.event.members[key];
+				        if(member.enabled){
+							var eventContainMember = {};
+							eventContainMember.phone = member.phone;
+							eventContainMember.name = member.name;
+							members.push(eventContainMember);
+				        }
+				    }
 				}
+
+//				var i;
+//				for(i=0;i<$scope.event.members.length;i++){
+//					var member = $scope.event.members[i]; 
+//					if(member.enabled){
+//						var eventContainMember = {};
+//						eventContainMember.phone = member.phone;
+//						eventContainMember.name = member.name;
+//						members.push(eventContainMember);
+//					}
+//				}
 				members.push({
 					phone: $scope.hostPhone,
 					name : $scope.hostName});
