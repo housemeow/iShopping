@@ -98,3 +98,25 @@ angular.module('iLabBirthdayLine').factory('iLabMember', function ($rootScope, $
         }
 	};
 });
+
+
+angular.module('iLabBirthdayLine').factory('iLabEvent', function ($http, $window, PhoneGap, $rootScope) {
+	var iLabServiceUrl = 'http://iweb.csie.ntut.edu.tw:10080/apps36/Event/';
+	return {
+    	sendMessage: function(onSuccess) {
+    		var send = $http({
+                method: 'POST',
+                url: iLabServiceUrl + "GetNewEid"
+            });
+    		
+    		send.success(function(response, status, headers, config){
+    			console.log("發送成功: " + response);
+    			(onSuccess || angular.noop)(response);
+    		});
+    		
+    		send.error(function(response, status, headers, config) {
+    		    console.log("發送失敗，原因:"+response);
+    		});
+        }
+    };
+});
