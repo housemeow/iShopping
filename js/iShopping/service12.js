@@ -7,7 +7,7 @@ app.factory('DBManager', function($window, PhoneGap) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS friendInvitation(smid INTEGER PRIMARY KEY, name TEXT)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS messages(msgId INTEGER PRIMARY KEY, senderPhone TEXT, receiverPhone TEXT, message TEXT, time DATE, hasRead BOOLEAN, latitude REAL, longitude REAL)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER PRIMARY KEY, name TEXT, detail TEXT, date DATE, time TEXT, destination TEXT, latitude REAL, longitude REAL, mmid INTEGER)", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS eventContainMember(eid INTEGER, mid INTEGER,name TEXT, latitude REAL, longitude REAL)", []);
+            tx.executeSql("CREATE TABLE IF NOT EXISTS eventContainMember(eid INTEGER, phone TEXT, name TEXT, latitude REAL, longitude REAL)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventInvitation(eid INTEGER, eventName TEXT, inviterName TEXT)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventMessageLog(eid INTEGER, smid INTEGER, messageType TEXT, message TEXT, latitude REAL, longitude REAL)", []);
         });
@@ -113,6 +113,21 @@ app.factory('DBManager', function($window, PhoneGap) {
         	});
         },
         
+        addEventContainMember: function(eventContainMember, onSuccess, onError) {
+        	PhoneGap.ready(function() {
+	            db.transaction(function(tx) {
+	                tx.executeSql("INSERT INTO eventContainMember(eid, phone, name, latitude, longitude) VALUES (?, ?, ?, ?, ?)",
+	                	[eventContainMember.eid, eventContainMember.phone, eventContainMember.name, eventContainMember.latitude, eventContainMember.longitude],
+	                    onSuccess, function (e) {
+	                        console.log('新增事件成員失敗，原因: ' + e.message);
+	    	            	console.log(JSON.stringify(friend));
+	                        (onError || angular.noop)(e);
+	                    }
+	                );
+	            });
+        	});
+        },
+        
         addMessage: function(message, onSuccess, onError) {
         	PhoneGap.ready(function() {
 	            db.transaction(function(tx) {
@@ -167,7 +182,36 @@ app.factory('DBManager', function($window, PhoneGap) {
     };
 });
 
-app.factory('EventManager', function(DBManager, iLabEvent) {
+
+
+app.factory('EventContainMemberManager', function(DBManager) {
+	console.log("流程 - EventContainMemberManager");
+	var eventContainMembers = [];
+	return {
+		add: function(eventContainMember, onSuccess, onError) {
+			console.log("流程 - EventContainMemberManager add");
+			console.log("eventContainMember = " + JSON.stringify(eventContainMember));
+			DBManager.addEventContainMember(eventContainMember, function(){
+				eventContainMembers.push(eventContainMember);
+				console.log("eventContainMembers =" + JSON.stringify(eventContainMembers));
+                (onSuccess || angular.noop)();
+			}, onError);
+		},
+		getMembersByEid: function(eid) {
+			console.log("流程 - EventManager getById");
+			var members = [];
+			var i;
+			for(i=0;i<eventContainMembers.length;i++){
+				if(eventContainMembers[i].eid == eid){
+					members.push(eventContainMembers[i]);
+				}
+			}
+			return members;
+		}
+	};
+});
+
+app.factory('EventManager', function(DBManager, EventContainMemberManager, iLabEvent) {
 	console.log("流程 - EventManager");
 	var eventList = {};
 	DBManager.getEvents(function(tx, res) {
@@ -195,6 +239,15 @@ app.factory('EventManager', function(DBManager, iLabEvent) {
 				DBManager.addEvent(event, function(){
 					console.log("流程 - EventManager DBManager.addEvent");
 					eventList[event.eid] = event;
+					console.log("event.members.length = " + event.members.length);
+					var i;
+					for(i=0;i<event.members.length;i++){
+						console.log("for block");
+						var member = event.members[i];
+						member.eid = eid;
+						console.log("member = " + JSON.stringify(member));
+						EventContainMemberManager.add(member);
+					}
 	                (onSuccess || angular.noop)();
 				}, onError);
 			});

@@ -33,6 +33,21 @@ app.controller('EventController', function($scope, EventManager, ChatManager, $s
 			$scope.title = "建立活動";
 			$scope.gatheringPointButonText = "設定集合點";
 			buttonCSS.tap = function() {
+				$scope.event.members = JSON.parse($scope.event.members);
+				var members = [];
+				var i;
+				for(i=0;i<$scope.event.members.length;i++){
+					var member = $scope.event.members[i]; 
+					if(member.enabled){
+						var eventContainMember = {};
+						eventContainMember.phone = member.phone;
+						eventContainMember.name = member.name;
+						members.push($scope.event.members[i]);
+					}
+				}
+				
+				$scope.event.members = members;
+				
 				EventManager.add($scope.event);
 				$state.go('tab.eventList');
 			};
