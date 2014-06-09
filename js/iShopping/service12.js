@@ -6,7 +6,7 @@ app.factory('DBManager', function($window, PhoneGap) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS friends(id INTEGER PRIMARY KEY ASC, name TEXT UNIQUE, phone TEXT UNIQUE, email TEXT, birthday DATE, isMember BOOLEAN, eventId TEXT default '')", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS friendInvitation(smid INTEGER PRIMARY KEY, name TEXT)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS messages(msgId INTEGER PRIMARY KEY, senderPhone TEXT, receiverPhone TEXT, message TEXT, time DATE, hasRead BOOLEAN, latitude REAL, longitude REAL)", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER PRIMARY KEY, name TEXT, detail TEXT, date DATE, time TEXT, destination TEXT, latitude REAL, longitude REAL, mmid INTEGER)", []);
+            tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER, name TEXT, detail TEXT, date DATE, time TEXT, destination TEXT, latitude REAL, longitude REAL, mmid INTEGER)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventContainMember(eid INTEGER, phone TEXT, name TEXT, latitude REAL, longitude REAL)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventInvitation(eid INTEGER, eventName TEXT, inviterName TEXT)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventMessageLog(eid INTEGER, smid INTEGER, messageType TEXT, message TEXT, latitude REAL, longitude REAL)", []);
@@ -92,10 +92,10 @@ app.factory('DBManager', function($window, PhoneGap) {
         	console.log("流程 - DBManager addEvent");
         	PhoneGap.ready(function() {
 	            db.transaction(function(tx) {
-	                tx.executeSql("INSERT INTO event(name, detail, date, time, destination, latitude, longitude, mmid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-	                	[event.name, event.detail, event.date, event.time, event.destination, event.latitude, event.longitude, event.mmid],
+	                tx.executeSql("INSERT INTO event(eid, name, detail, date, time, destination, latitude, longitude, mmid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+	                	[event.eid, event.name, event.detail, event.date, event.time, event.destination, event.latitude, event.longitude, event.mmid],
 	                    function(tx, res){
-	                    	event.eid = res.insertId;
+	                    	//event.eid = res.insertId;
 	                    	(onSuccess||angular.noop)();
 	                    }, function (e) {
 	                        console.log('新增任務失敗，原因: ' + e.message);
