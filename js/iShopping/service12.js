@@ -6,7 +6,7 @@ app.factory('DBManager', function($window, PhoneGap) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS friends(id INTEGER PRIMARY KEY ASC, name TEXT UNIQUE, phone TEXT UNIQUE, email TEXT, birthday DATE, isMember BOOLEAN, eventId TEXT default '')", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS friendInvitation(smid INTEGER PRIMARY KEY, name TEXT)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS messages(msgId INTEGER PRIMARY KEY, senderPhone TEXT, receiverPhone TEXT, message TEXT, time DATE, hasRead BOOLEAN, latitude REAL, longitude REAL)", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER PRIMARY KEY ASC, name TEXT, detail TEXT, date DATE, time TEXT, destination TEXT, latitude REAL, longitude REAL, mmid INTEGER)", []);
+            tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER PRIMARY KEY, name TEXT, detail TEXT, date DATE, time TEXT, destination TEXT, latitude REAL, longitude REAL, mmid INTEGER)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventContainMember(eid INTEGER, mid INTEGER,name TEXT, latitude REAL, longitude REAL)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventInvitation(eid INTEGER, eventName TEXT, inviterName TEXT)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventMessageLog(eid INTEGER, smid INTEGER, messageType TEXT, message TEXT, latitude REAL, longitude REAL)", []);
@@ -167,7 +167,7 @@ app.factory('DBManager', function($window, PhoneGap) {
     };
 });
 
-app.factory('EventManager', function(DBManager) {
+app.factory('EventManager', function(DBManager, iLabEvent) {
 	console.log("流程 - EventManager");
 	var eventList = {};
 	DBManager.getEvents(function(tx, res) {
@@ -189,11 +189,15 @@ app.factory('EventManager', function(DBManager) {
 		},
 		add: function(event, onSuccess, onError) {
 			console.log("流程 - EventManager add");
-			DBManager.addEvent(event, function(){
-				console.log("流程 - EventManager DBManager.addEvent");
-				eventList[event.eid] = event;
-                (onSuccess || angular.noop)();
-			}, onError);
+			iLabEvent.getNewEid(function(eid){
+				event.eid = eid;
+				console.log("event = " + JSON.stringify(event));
+				DBManager.addEvent(event, function(){
+					console.log("流程 - EventManager DBManager.addEvent");
+					eventList[event.eid] = event;
+	                (onSuccess || angular.noop)();
+				}, onError);
+			});
 		},
 		getById: function(eid) {
 			console.log("流程 - EventManager getById");

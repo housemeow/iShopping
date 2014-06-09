@@ -103,7 +103,7 @@ angular.module('iLabBirthdayLine').factory('iLabMember', function ($rootScope, $
 angular.module('iLabBirthdayLine').factory('iLabEvent', function ($http, $window, PhoneGap, $rootScope) {
 	var iLabServiceUrl = 'http://iweb.csie.ntut.edu.tw:10080/apps36/Event/';
 	return {
-    	sendMessage: function(onSuccess) {
+    	getNewEid: function(onSuccess) {
     		var send = $http({
                 method: 'POST',
                 url: iLabServiceUrl + "GetNewEid"
