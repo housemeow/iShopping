@@ -12,6 +12,7 @@ app.factory('DBManager', function($window, PhoneGap) {
     });
     
     return {
+    	// frineds
         addFriend: function (friend, onSuccess, onError) {
         	PhoneGap.ready(function() {
 	            db.transaction(function(tx) {
@@ -63,17 +64,8 @@ app.factory('DBManager', function($window, PhoneGap) {
             	});
             });
         },
-        getEventContainMembers: function (onSuccess, onError) {
-        	PhoneGap.ready(function() {
-        		db.transaction(function(tx) {
-        			tx.executeSql("SELECT * FROM eventContainMember", [],
-	        			onSuccess,
-        				onError
-    				);
-            	});
-            });
-        },
         
+        // event
         getEvents: function (onSuccess, onError) {
         	console.log("流程 - DBManager getEvents");
         	PhoneGap.ready(function() {
@@ -121,6 +113,18 @@ app.factory('DBManager', function($window, PhoneGap) {
         	});
         },
         
+        // evendContainMember
+        getEventContainMembers: function (onSuccess, onError) {
+        	PhoneGap.ready(function() {
+        		db.transaction(function(tx) {
+        			tx.executeSql("SELECT * FROM eventContainMember", [],
+	        			onSuccess,
+        				onError
+    				);
+            	});
+            });
+        },
+
         addEventContainMember: function(eventContainMember, onSuccess, onError) {
         	PhoneGap.ready(function() {
 	            db.transaction(function(tx) {
@@ -135,7 +139,35 @@ app.factory('DBManager', function($window, PhoneGap) {
 	            });
         	});
         },
-        
+
+        // eventMessageLog
+        getEventMessageLogs: function (onSuccess, onError) {
+        	PhoneGap.ready(function() {
+        		db.transaction(function(tx) {
+        			tx.executeSql("SELECT * FROM eventMessageLog", [],
+	        			onSuccess,
+        				onError
+    				);
+            	});
+            });
+        },
+
+        addEventMessageLog: function(eventMessageLog, onSuccess, onError) {
+        	PhoneGap.ready(function() {
+	            db.transaction(function(tx) {
+	                tx.executeSql("INSERT INTO eventMessageLog(eid, senderPhone, messageType, time, ,latitude, longitude) VALUES (?, ?, ?, ?, ?, ?)",
+	                	[eventMessageLog.eid, eventMessageLog.senderPhone, eventMessageLog.messageType, eventMessageLog.time, eventMessageLog.latitude, eventMessageLog.longitude],
+	                    onSuccess, function (e) {
+	                        console.log('新增活動訊息紀錄失敗，原因: ' + e.message);
+	    	            	// console.log(JSON.stringify(friend));
+	                        (onError || angular.noop)(e);
+	                    }
+	                );
+	            });
+        	});
+        },
+
+        // messages
         addMessage: function(message, onSuccess, onError) {
         	PhoneGap.ready(function() {
 	            db.transaction(function(tx) {
@@ -190,7 +222,41 @@ app.factory('DBManager', function($window, PhoneGap) {
     };
 });
 
+app.factory('EventMessageLogManager', function(DBManager) {
+	console.log("流程 - EventMessageLogManager");
+	var eventMessageLogs = [];
+	DBManager.getEventMessageLogs(function(tx, res) {
+		for (var i = 0, max = res.rows.length; i < max; i++) {
+			eventMessageLogs.push(res.rows.item(i));
+		}
+	});
+	
+	return {
+		add: function(eventMessageLog, onSuccess, onError) {
+			console.log("流程 - EventMessageLogManager add");
+			console.log("eventMessageLog = " + JSON.stringify(eventMessageLog));
+			DBManager.addEventMessageLog(eventMessageLog, function(){
+				eventMessageLogs.push(eventMessageLog);
+				console.log("eventMessageLogs =" + JSON.stringify(eventMessageLogs));
+                (onSuccess || angular.noop)();
+			}, onError);
+		},
 
+		getEventMessageLogsByEid: function(eid) {
+			console.log("流程 - EventMessageLogManager getEventMessageLogsByEid");
+			var messageLogs = [];
+			var i;
+			for(i=0;i<eventMessageLogs.length;i++){
+				console.log("eventMessageLogs[i]=" + JSON.stringify(eventMessageLogs[i]));
+				if(eventMessageLogs[i].eid == eid){
+					console.log("2");
+					messageLogs.push(eventMessageLogs[i]);
+				}
+			}
+			return messageLogs;
+		}
+	};
+});
 
 app.factory('EventContainMemberManager', function(DBManager) {
 	console.log("流程 - EventContainMemberManager");
