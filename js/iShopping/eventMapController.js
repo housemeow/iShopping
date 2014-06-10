@@ -1,7 +1,9 @@
-app.controller('EventMapController', function(EventManager, $scope, $stateParams, $state,
+app.controller('EventMapController', function(SettingManager, EventContainMemberManager, EventManager, $scope, $stateParams, $state,
 		Geolocation, $window) {
 	$scope.eventName = $stateParams.name;
 	$scope.eid = $stateParams.eid;
+	$scope.hostPhone = SettingManager.getHost().phone;;
+
 	
 	console.log("eventMap eid=" + $scope.eid);
 
@@ -49,12 +51,37 @@ app.controller('EventMapController', function(EventManager, $scope, $stateParams
 			}
 		});
 		
+		var members = EventContainMemberManager.getMembersByEid($scope.eid);
+		console.log("eventMapController members = " + JSON.stringify(members));
+		var memberMarkers = [];
+		var i;
+		for(i=0;i<members.length;i++){
+			var member = members[i];
+			if(member.phone != $scope.hostPhone){
+				var marker = new MarkerWithLabel({
+					position : origin,
+					labelContent : member.name,
+					labelAnchor : anchor,
+					labelClass : "labels",
+					labelStyle : {
+						opacity : 0.75
+					}
+				});
+				//console.log("marker = " + JSON.stringify(marker));
+				marker.phone = member.phone;
+				memberMarkers.push(marker);
+				marker.setMap(map);
+			}
+		}
+		
+		
 		setInterval(function(){
 			Geolocation.getCurrentPosition(function(geoposition){
 				var mePosition = new google.maps.LatLng(geoposition.coords.latitude,
 						geoposition.coords.longitude);
 				markerMe.setPosition(mePosition);
 				console.log("position changed:" + mePosition);
+				
 			});
 		},3000);
 
