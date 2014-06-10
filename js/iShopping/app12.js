@@ -193,7 +193,7 @@ app.filter('reverseArray', function () {
     };
 });
 
-app.run(function(DBManager, EventManager, SettingManager, PushNotificationsFactory, iLabMessage, $window, PhoneGap, $rootScope, FriendManager, ChatManager) {
+app.run(function(DBManager, EventManager, SettingManager, EventContainMemberManager, PushNotificationsFactory, iLabMessage, $window, PhoneGap, $rootScope, FriendManager, ChatManager) {
 	Date.prototype.dateDiff = function(objDate, interval){
 	    var dtEnd = new Date(objDate);
 	    if(isNaN(dtEnd)) return undefined;
@@ -238,10 +238,19 @@ app.run(function(DBManager, EventManager, SettingManager, PushNotificationsFacto
 						$rootScope.$apply();
 					});
 				}
-			}else if(message.message.type = "eventCreate"){
+			}else if(message.message.type = "eventCreate" && host.phone != message.senderPhone){
 				console.log('這裡是app12.js window.receveMessage : type = eventCreate');
 				var event = message.message.event;
 				EventManager.addFromExistEid(event);
+				var members = message.message.event.members;
+				console.log("members = " + JSON.stringify(members));
+				var i;
+				for(i=0;i<members.length;i++){
+					var member = members[i];
+					member.eid = message.message.event.eid;
+					console.log("member = " + JSON.stringify(member));
+					EventContainMemberManager.add(member);
+				}
 			}
 		}
 		else console.log('receiveMessage: 發訊者來路不明');
