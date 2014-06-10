@@ -243,20 +243,6 @@ app.run(function(DBManager, EventManager, SettingManager, EventContainMemberMana
 				var event = message.message.event;
 				EventManager.addFromExistEid(event);
 				var members = message.message.event.members;
-<<<<<<< HEAD
-				console.log("messge:" + JSON.stringify(members));
-				for(i=0;i<members.length;i++){
-					var member = members[i];
-					member.eid = event.eid;
-					console.log("member: " + JSON.stringify(member));
-					EventContainMemberManager.add(member);
-					/*
-					if(member.phone != host.phone)
-					{
-						EventContainMemberManager.add(member);
-					}
-					*/
-=======
 				console.log("members = " + JSON.stringify(members));
 				var i;
 				for(i=0;i<members.length;i++){
@@ -264,7 +250,6 @@ app.run(function(DBManager, EventManager, SettingManager, EventContainMemberMana
 					member.eid = message.message.event.eid;
 					console.log("member = " + JSON.stringify(member));
 					EventContainMemberManager.add(member);
->>>>>>> 85d7037377e98f37555c099890e70b0583f56e5a
 				}
 			}
 		}
