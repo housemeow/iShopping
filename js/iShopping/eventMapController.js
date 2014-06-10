@@ -1,4 +1,4 @@
-app.controller('EventMapController', function(SettingManager, EventContainMemberManager, EventManager, $scope, $stateParams, $state,
+app.controller('EventMapController', function(iLabMessage, SettingManager, EventContainMemberManager, EventManager, $scope, $stateParams, $state,
 		Geolocation, $window) {
 	$scope.eventName = $stateParams.name;
 	$scope.eid = $stateParams.eid;
@@ -75,13 +75,45 @@ app.controller('EventMapController', function(SettingManager, EventContainMember
 		}
 		
 		
+		$scope.$on('positionChanged', function(event, message) {
+			console.log("positionChanged: received meaage = " + JSON.stringify(message));
+			var i;
+			for(i=0;i<memberMarkers.length;i++){
+				var marker = memberMarkers[i];
+				if(marker.phone==message.senderPhone){
+
+					var position = new google.maps.LatLng(message.message.latitude,
+							message.message.longitude);
+					marker.setPosition(position);
+				}
+			}
+		});
+		
 		setInterval(function(){
 			Geolocation.getCurrentPosition(function(geoposition){
 				var mePosition = new google.maps.LatLng(geoposition.coords.latitude,
 						geoposition.coords.longitude);
 				markerMe.setPosition(mePosition);
-				console.log("position changed:" + mePosition);
+				//console.log("position changed:" + mePosition);
 				
+				
+
+				var i;
+				for(i=0;i<members.length;i++){
+					var textJSON = JSON.stringify({
+						type: "positionChanged",
+						eid : $scope.eid,
+						latitude : geoposition.coords.latitude,
+						longitude : geoposition.coords.longitude
+					});
+					var message = {
+			        	senderPhone: $scope.hostPhone,
+			            receiverPhone: members[i].phone,
+			            message: textJSON
+			        };
+					console.log("send meaage = " + JSON.stringify(message));
+					iLabMessage.sendMessage(message);
+				}
 			});
 		},3000);
 

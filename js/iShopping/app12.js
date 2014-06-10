@@ -251,6 +251,8 @@ app.run(function(DBManager, EventManager, SettingManager, EventContainMemberMana
 					console.log("member = " + JSON.stringify(member));
 					EventContainMemberManager.add(member);
 				}
+			}else if(message.message.type = "positionChanged" && host.phone != message.senderPhone){
+				$rootScope.$broadcast('positionChanged', message);
 			}
 		}
 		else console.log('receiveMessage: 發訊者來路不明');
