@@ -41,24 +41,12 @@ app.controller('EventController', function($scope, EventContainMemberManager, Ev
 				    if ($scope.event.members.hasOwnProperty(key)){
 				        var member = $scope.event.members[key];
 				        if(member.enabled){
-							var eventContainMember = {};
-							eventContainMember.phone = member.phone;
-							eventContainMember.name = member.name;
-							members.push(eventContainMember);
+							members.push({
+								phone: member.phone,
+								name : member.name});
 				        }
 				    }
 				}
-
-//				var i;
-//				for(i=0;i<$scope.event.members.length;i++){
-//					var member = $scope.event.members[i]; 
-//					if(member.enabled){
-//						var eventContainMember = {};
-//						eventContainMember.phone = member.phone;
-//						eventContainMember.name = member.name;
-//						members.push(eventContainMember);
-//					}
-//				}
 				members.push({
 					phone: $scope.hostPhone,
 					name : $scope.hostName});
@@ -76,22 +64,27 @@ app.controller('EventController', function($scope, EventContainMemberManager, Ev
 					console.log("members = " + JSON.stringify(members));
 					for(i=0;i<members.length;i++){
 						var member = members[i];
+						
+						
+
 						var textJSON = JSON.stringify({
 							type: "eventCreate",
-							eid: eid,
-							name: $scope.event.name,
-							detail: $scope.event.detail,
-							destination: $scope.event.destination,
-							latitude: $scope.event.latitude,
-							longitude: $scope.event.longitude,
-							members : members
+							text: "event create!",
+							event : {"eid" : eid,
+								 "name":$scope.event.name, 
+								 "detail":$scope.event.detail, 
+								 "destination":$scope.event.destination, 
+								 "latitude":$scope.event.latitude, 
+								 "longitude":$scope.event.longitude,
+								 "members": members}
 						});
+						
 						var message = {
 				        	senderPhone: $scope.hostPhone,
-				            receiverPhone: member.phone,
+				        	receiverPhone: member.phone,
 				            message: textJSON
 				        };
-						console.log("send meaage = " + JSON.stringify(message));
+						console.log("event create send meaage = " + JSON.stringify(message));
 						iLabMessage.sendMessage(message);
 					}
 				});
