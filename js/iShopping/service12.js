@@ -4,12 +4,10 @@ app.factory('DBManager', function($window, PhoneGap) {
         db = $window.sqlitePlugin.openDatabase({name: "BirthdayLineDB"});
         db.transaction(function(tx) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS friends(id INTEGER PRIMARY KEY ASC, name TEXT UNIQUE, phone TEXT UNIQUE, email TEXT, birthday DATE, isMember BOOLEAN, eventId TEXT default '')", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS friendInvitation(smid INTEGER PRIMARY KEY, name TEXT)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS messages(msgId INTEGER PRIMARY KEY, senderPhone TEXT, receiverPhone TEXT, message TEXT, time DATE, hasRead BOOLEAN, latitude REAL, longitude REAL)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER, name TEXT, detail TEXT, date DATE, time TEXT, destination TEXT, latitude REAL, longitude REAL)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventContainMember(eid INTEGER, phone TEXT, name TEXT, latitude REAL, longitude REAL, PRIMARY KEY (eid, phone))", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS eventInvitation(eid INTEGER, eventName TEXT, inviterName TEXT)", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS eventMessageLog(eid INTEGER, smid INTEGER, messageType TEXT, message TEXT, latitude REAL, longitude REAL)", []);
+            tx.executeSql("CREATE TABLE IF NOT EXISTS eventMessageLog(eid INTEGER, senderPhone TEXT, messageType TEXT, message TEXT, latitude REAL, longitude REAL)", []);
         });
     });
     
