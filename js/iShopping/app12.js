@@ -238,7 +238,7 @@ app.run(function(DBManager, EventManager, SettingManager, EventContainMemberMana
 						$rootScope.$apply();
 					});
 				}
-			}else if(message.message.type = "eventCreate" && host.phone != message.senderPhone){
+			}else if(message.message.type == "eventCreate" && host.phone != message.senderPhone){
 				console.log('這裡是app12.js window.receveMessage : type = eventCreate');
 				var event = message.message.event;
 				EventManager.addFromExistEid(event);
