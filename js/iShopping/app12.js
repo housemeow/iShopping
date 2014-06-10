@@ -242,6 +242,20 @@ app.run(function(DBManager, EventManager, SettingManager, PushNotificationsFacto
 				console.log('這裡是app12.js window.receveMessage : type = eventCreate');
 				var event = message.message.event;
 				EventManager.addFromExistEid(event);
+				var members = message.message.event.members;
+				console.log("messge:" + JSON.stringify(members));
+				for(i=0;i<members.length;i++){
+					var member = members[i];
+					member.eid = event.eid;
+					console.log("member: " + JSON.stringify(member));
+					EventContainMemberManager.add(member);
+					/*
+					if(member.phone != host.phone)
+					{
+						EventContainMemberManager.add(member);
+					}
+					*/
+				}
 			}
 		}
 		else console.log('receiveMessage: 發訊者來路不明');
