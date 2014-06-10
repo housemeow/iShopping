@@ -213,7 +213,7 @@ app.run(function(DBManager, EventManager, SettingManager, PushNotificationsFacto
 	$window.openFB.init(fbAppId);
 	
 	$window.receiveMessage = function(payload) {
-		console.log('收到一則新訊息: ' + payload);
+		console.log('這裡是app12.js window.receveMessage 收到一則新訊息: ' + payload);
 		var message = JSON.parse(payload);
 		message.message = JSON.parse(message.message);
 		console.log("messge:" + JSON.stringify(message));
@@ -225,6 +225,7 @@ app.run(function(DBManager, EventManager, SettingManager, PushNotificationsFacto
 			console.log('receiveMessage: 發訊者是朋友,或是我,或是消息發布者 ,  hasRead:' + message.hasRead);
 			if(message.message.type == "friendMessage")
 			{
+				console.log('這裡是app12.js window.receveMessage : type = friendMessage');
 				if (!message.hasRead){ //別人發的訊息	
 					ChatManager.add(message, function() {
 						$rootScope.$broadcast('receivedMessage', message);
@@ -238,8 +239,9 @@ app.run(function(DBManager, EventManager, SettingManager, PushNotificationsFacto
 					});
 				}
 			}else if(message.message.type = "eventCreate"){
-				var event = {};
-				EventManager.add(event);
+				console.log('這裡是app12.js window.receveMessage : type = eventCreate');
+				var event = message.message.event;
+				EventManager.addFromExistEid(event);
 			}
 		}
 		else console.log('receiveMessage: 發訊者來路不明');
