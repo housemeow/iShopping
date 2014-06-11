@@ -88,7 +88,7 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 				}
 			}
 		});
-		
+		/*
 		setInterval(function(){
 			Geolocation.getCurrentPosition(function(geoposition){
 				var mePosition = new google.maps.LatLng(geoposition.coords.latitude,
@@ -115,7 +115,7 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 					}	
 				}
 			});
-		},3000);
+		},3000);*/
 
 		
 		console.log("event in eventMap is: " + JSON.stringify($scope.event));

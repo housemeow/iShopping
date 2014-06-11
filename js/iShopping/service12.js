@@ -305,7 +305,7 @@ app.factory('EventManager', function(DBManager, EventContainMemberManager, iLabE
 	return {
 		list: function() {
 			console.log("流程 - EventManager list");
-			console.log("in service: eventList=" + JSON.stringify(eventList));
+			// console.log("in service: eventList=" + JSON.stringify(eventList));
 			return eventList;
 		},
 		count: function() {

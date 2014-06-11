@@ -193,7 +193,7 @@ app.filter('reverseArray', function () {
     };
 });
 
-app.run(function(DBManager, EventManager, SettingManager, EventContainMemberManager, PushNotificationsFactory, iLabMessage, $window, PhoneGap, $rootScope, FriendManager, ChatManager) {
+app.run(function(Geolocation, DBManager, EventManager, SettingManager, EventContainMemberManager, PushNotificationsFactory, iLabMessage, $window, PhoneGap, $rootScope, FriendManager, ChatManager) {
 	Date.prototype.dateDiff = function(objDate, interval){
 	    var dtEnd = new Date(objDate);
 	    if(isNaN(dtEnd)) return undefined;
@@ -209,6 +209,61 @@ app.run(function(DBManager, EventManager, SettingManager, EventContainMemberMana
 	};
 	
 	var host = SettingManager.getHost();
+	// host.isAutoSendPosition = false;
+	console.log("before isAutoSendPosition");
+	// auto send position timer
+	
+	setInterval(function(){
+		var host = SettingManager.getHost();
+		host.isAutoSendPosition = true;
+		if(host.isAutoSendPosition != null && host.isAutoSendPosition == true)
+		{
+			console.log("正在自動傳座標模式!!!");
+			Geolocation.getCurrentPosition(function(geoposition){
+				//var mePosition = new google.maps.LatLng(geoposition.coords.latitude,
+				//		geoposition.coords.longitude);
+				var events = EventManager.list();
+				console.log("正在自動傳座標模式 events: " + JSON.stringify(events));
+				var j;
+
+				for (var key in events) {
+					console.log("正在自動傳座標模式 events hasOwnProperty: ");
+				    if (events.hasOwnProperty(key)){
+				        var e = events[key];
+				        console.log("正在自動傳座標模式 e loop!!!");
+						var members = EventContainMemberManager.getMembersByEid(e.eid);
+						console.log("正在自動傳座標模式 members: " + JSON.stringify(members));
+						var i;
+						for(i=0;i<members.length;i++){
+							console.log("正在自動傳座標模式 member loop!!!");
+							if(members[i].phone != host.phone)
+							{
+								console.log("正在自動傳座標模式 member not self block!!!");
+								var textJSON = JSON.stringify({
+								type: "positionChanged",
+								eid : e.eid,
+								latitude : geoposition.coords.latitude,
+								longitude : geoposition.coords.longitude
+								});
+								var message = {
+						        	senderPhone: host.phone,
+						            receiverPhone: members[i].phone,
+						            message: textJSON
+						        };
+								console.log("正在自動傳座標模式 send meaage = " + JSON.stringify(message));
+								iLabMessage.sendMessage(message);
+							}	
+						}
+				    }
+				}
+			});
+		}
+		else
+		{
+			console.log("目前為手動設定座標模式!!!");
+		}
+	},3000);
+
 	var fbAppId = '270369976420378';
 	$window.openFB.init(fbAppId);
 	
@@ -277,4 +332,7 @@ app.run(function(DBManager, EventManager, SettingManager, EventContainMemberMana
 	});
 	
 	moment.lang('zh-tw');
+	
+	
+
 });
