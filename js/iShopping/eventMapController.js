@@ -3,7 +3,12 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 	$scope.eventName = $stateParams.name;
 	$scope.eid = $stateParams.eid;
 	$scope.hostPhone = SettingManager.getHost().phone;;
-
+	$scope.autoUpdate = {text: "自動", checked: true};
+	
+	$scope.toggleClick = function()
+	{
+		console.log("$scope.autoUpdate = " + JSON.stringify($scope.autoUpdate));
+	};
 	
 	console.log("eventMap eid=" + $scope.eid);
 
