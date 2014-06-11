@@ -1,4 +1,4 @@
-var app = angular.module("iShopping", ['ionic', 'PhoneGap','iLabBirthdayLine']);
+var app = angular.module("Simple_App04", ['ionic', 'PhoneGap','iLabBirthdayLine']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
