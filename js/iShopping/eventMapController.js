@@ -68,6 +68,9 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 		});
 		
 
+		$scope.$on('myPositionChanged', function(event, position) {
+			markerMe.setPosition(position);
+		});
 		
 		
 		var members = EventContainMemberManager.getMembersByEid($scope.eid);

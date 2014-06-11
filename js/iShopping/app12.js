@@ -209,23 +209,20 @@ app.run(function(Geolocation, DBManager, EventManager, SettingManager, EventCont
 	};
 	
 	var host = SettingManager.getHost();
-	// host.isAutoSendPosition = false;
 	console.log("before isAutoSendPosition");
 	// auto send position timer
 	
 	setInterval(function(){
 		var host = SettingManager.getHost();
-		//host.isAutoSendPosition = true;
 		if(host.isAutoSendPosition != null && host.isAutoSendPosition == true)
 		{
 			console.log("正在自動傳座標模式!!!");
 			Geolocation.getCurrentPosition(function(geoposition){
-				//var mePosition = new google.maps.LatLng(geoposition.coords.latitude,
-				//		geoposition.coords.longitude);
+				var position = new google.maps.LatLng(geoposition.coords.latitude, geoposition.coords.longitude);
+				$rootScope.$broadcast('myPositionChanged', position);
+
 				var events = EventManager.list();
 				console.log("正在自動傳座標模式 events: " + JSON.stringify(events));
-				var j;
-
 				for (var key in events) {
 					console.log("正在自動傳座標模式 events hasOwnProperty: ");
 				    if (events.hasOwnProperty(key)){
