@@ -95,24 +95,24 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 						geoposition.coords.longitude);
 				markerMe.setPosition(mePosition);
 				//console.log("position changed:" + mePosition);
-				
-				
-
 				var i;
 				for(i=0;i<members.length;i++){
-					var textJSON = JSON.stringify({
+					if(members[i].phone != $scope.hostPhone)
+					{
+						var textJSON = JSON.stringify({
 						type: "positionChanged",
 						eid : $scope.eid,
 						latitude : geoposition.coords.latitude,
 						longitude : geoposition.coords.longitude
-					});
-					var message = {
-			        	senderPhone: $scope.hostPhone,
-			            receiverPhone: members[i].phone,
-			            message: textJSON
-			        };
-					console.log("send meaage = " + JSON.stringify(message));
-					iLabMessage.sendMessage(message);
+						});
+						var message = {
+				        	senderPhone: $scope.hostPhone,
+				            receiverPhone: members[i].phone,
+				            message: textJSON
+				        };
+						console.log("send meaage = " + JSON.stringify(message));
+						iLabMessage.sendMessage(message);
+					}	
 				}
 			});
 		},3000);
