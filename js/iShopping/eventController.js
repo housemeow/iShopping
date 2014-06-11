@@ -64,10 +64,9 @@ app.controller('EventController', function($scope, EventContainMemberManager, Ev
 					console.log("members = " + JSON.stringify(members));
 					for(i=0;i<members.length;i++){
 						var member = members[i];
-						
-						
-
-						var textJSON = JSON.stringify({
+						if(member.phone != $scope.hostPhone)
+						{
+							var textJSON = JSON.stringify({
 							type: "eventCreate",
 							text: "event create!",
 							event : {"eid" : eid,
@@ -77,15 +76,16 @@ app.controller('EventController', function($scope, EventContainMemberManager, Ev
 								 "latitude":$scope.event.latitude, 
 								 "longitude":$scope.event.longitude,
 								 "members": members}
-						});
+							});
 						
-						var message = {
-				        	senderPhone: $scope.hostPhone,
-				        	receiverPhone: member.phone,
-				            message: textJSON
-				        };
-						console.log("event create send meaage = " + JSON.stringify(message));
-						iLabMessage.sendMessage(message);
+							var message = {
+					        	senderPhone: $scope.hostPhone,
+					        	receiverPhone: member.phone,
+					            message: textJSON
+					        };
+							console.log("event create send meaage = " + JSON.stringify(message));
+							iLabMessage.sendMessage(message);
+						}
 					}
 				});
 				$state.go('tab.eventList');
@@ -110,7 +110,6 @@ app.controller('EventController', function($scope, EventContainMemberManager, Ev
 				$scope.event.latitude = event.latitude;
 				$scope.event.longitude = event.longitude;
 			}
-			$scope.event.mmid = event.mmid;
 
 
 			buttonCSS.tap = function() {
