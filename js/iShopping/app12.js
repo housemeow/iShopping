@@ -43,15 +43,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	            }
 	        }
 	    })
-	    .state('tab.news', {
-	        url: '/news',
-	        views: {
-                'tab-news': {
-                    templateUrl: 'templates/iShopping/news.html',
-                    controller: 'NewsCtrl'
-                }
-	        }
-	    })
 	    .state('eventMap', {
 	        url: '/eventMap?eid&name',
             templateUrl: 'templates/iShopping/eventMap.html',

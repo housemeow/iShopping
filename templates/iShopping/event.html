@@ -22,7 +22,7 @@
 			    <input type="time" ng-model="event.time" ng-disabled="state == 'VIEW'">
 			</label>
 			<label class="item item-input">
-			    <span class="input-label">加入朋友: </span>
+			    <span class="input-label" ng-show="state == 'CREATE'">加入朋友: </span>
 				<button ng-click="clickAddFriendButton()" ng-show="state == 'CREATE'" class="button button-positive">選擇朋友({{event.selectedMemberCount}})</button>
 			</label>
 			<label class="item item-input">
