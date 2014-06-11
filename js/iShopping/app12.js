@@ -215,7 +215,7 @@ app.run(function(Geolocation, DBManager, EventManager, SettingManager, EventCont
 	
 	setInterval(function(){
 		var host = SettingManager.getHost();
-		host.isAutoSendPosition = true;
+		//host.isAutoSendPosition = true;
 		if(host.isAutoSendPosition != null && host.isAutoSendPosition == true)
 		{
 			console.log("正在自動傳座標模式!!!");

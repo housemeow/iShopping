@@ -2,12 +2,17 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 		Geolocation, $window) {
 	$scope.eventName = $stateParams.name;
 	$scope.eid = $stateParams.eid;
-	$scope.hostPhone = SettingManager.getHost().phone;;
-	$scope.autoUpdate = {text: "自動", checked: true};
+	$scope.hostPhone = SettingManager.getHost().phone;
+	$scope.autoUpdate = {text: "自動", checked: SettingManager.getHost().isAutoSendPosition};
 	
 	$scope.toggleClick = function()
 	{
 		console.log("$scope.autoUpdate = " + JSON.stringify($scope.autoUpdate));
+
+		var host = SettingManager.getHost();
+		host.isAutoSendPosition = $scope.autoUpdate.checked;
+		SettingManager.setHost(host);
+		
 	};
 	
 	console.log("eventMap eid=" + $scope.eid);
@@ -62,7 +67,40 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 			}
 		});
 		
+
+		
+		
 		var members = EventContainMemberManager.getMembersByEid($scope.eid);
+		
+
+		google.maps.event.addListener(map, 'click', function(event) {
+			if($scope.autoUpdate.checked == false){
+				var host = SettingManager.getHost();
+				markerMe.setPosition(event.latLng);
+				var i;
+				for(i=0;i<members.length;i++){
+					console.log("手動坐標模式");
+					if(members[i].phone != host.phone)
+					{
+						console.log("手動傳座標模式 member not self block!!!");
+						var textJSON = JSON.stringify({
+							type: "positionChanged",
+							eid : $scope.eid,
+							latitude : event.latLng.lat(),//geoposition.coords.latitude,
+							longitude : event.latLng.lng()//geoposition.coords.longitude
+						});
+						var message = {
+				        	senderPhone: host.phone,
+				            receiverPhone: members[i].phone,
+				            message: textJSON
+				        };
+						console.log("手動傳座標模式 send meaage = " + JSON.stringify(message));
+						iLabMessage.sendMessage(message);
+					}	
+				}
+			}
+		});
+		
 		console.log("eventMapController members = " + JSON.stringify(members));
 		var memberMarkers = [];
 		var i;
@@ -99,35 +137,6 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 				}
 			}
 		});
-		/*
-		setInterval(function(){
-			Geolocation.getCurrentPosition(function(geoposition){
-				var mePosition = new google.maps.LatLng(geoposition.coords.latitude,
-						geoposition.coords.longitude);
-				markerMe.setPosition(mePosition);
-				//console.log("position changed:" + mePosition);
-				var i;
-				for(i=0;i<members.length;i++){
-					if(members[i].phone != $scope.hostPhone)
-					{
-						var textJSON = JSON.stringify({
-						type: "positionChanged",
-						eid : $scope.eid,
-						latitude : geoposition.coords.latitude,
-						longitude : geoposition.coords.longitude
-						});
-						var message = {
-				        	senderPhone: $scope.hostPhone,
-				            receiverPhone: members[i].phone,
-				            message: textJSON
-				        };
-						console.log("send meaage = " + JSON.stringify(message));
-						iLabMessage.sendMessage(message);
-					}	
-				}
-			});
-		},3000);*/
-
 		
 		console.log("event in eventMap is: " + JSON.stringify($scope.event));
 		if($scope.event.latitude!=null){
