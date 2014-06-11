@@ -7,7 +7,7 @@ app.factory('DBManager', function($window, PhoneGap) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS messages(msgId INTEGER PRIMARY KEY, senderPhone TEXT, receiverPhone TEXT, message TEXT, time DATE, hasRead BOOLEAN, latitude REAL, longitude REAL)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS event(eid INTEGER, name TEXT, detail TEXT, date DATE, time TEXT, destination TEXT, latitude REAL, longitude REAL)", []);
             tx.executeSql("CREATE TABLE IF NOT EXISTS eventContainMember(eid INTEGER, phone TEXT, name TEXT, latitude REAL, longitude REAL, PRIMARY KEY (eid, phone))", []);
-            tx.executeSql("CREATE TABLE IF NOT EXISTS eventMessageLog(eid INTEGER, senderPhone TEXT, messageType TEXT, message TEXT, latitude REAL, longitude REAL)", []);
+            tx.executeSql("CREATE TABLE IF NOT EXISTS eventMessage(eid INTEGER, senderPhone TEXT, messageType TEXT, message TEXT, latitude REAL, longitude REAL)", []);
         });
     });
     
@@ -140,11 +140,11 @@ app.factory('DBManager', function($window, PhoneGap) {
         	});
         },
 
-        // eventMessageLog
-        getEventMessageLogs: function (onSuccess, onError) {
+        // eventMessage
+        getEventMessages: function (onSuccess, onError) {
         	PhoneGap.ready(function() {
         		db.transaction(function(tx) {
-        			tx.executeSql("SELECT * FROM eventMessageLog", [],
+        			tx.executeSql("SELECT * FROM eventMessage", [],
 	        			onSuccess,
         				onError
     				);
@@ -152,11 +152,11 @@ app.factory('DBManager', function($window, PhoneGap) {
             });
         },
 
-        addEventMessageLog: function(eventMessageLog, onSuccess, onError) {
+        addEventMessage: function(eventMessage, onSuccess, onError) {
         	PhoneGap.ready(function() {
 	            db.transaction(function(tx) {
-	                tx.executeSql("INSERT INTO eventMessageLog(eid, senderPhone, messageType, time, ,latitude, longitude) VALUES (?, ?, ?, ?, ?, ?)",
-	                	[eventMessageLog.eid, eventMessageLog.senderPhone, eventMessageLog.messageType, eventMessageLog.time, eventMessageLog.latitude, eventMessageLog.longitude],
+	                tx.executeSql("INSERT INTO eventMessage(eid, senderPhone, messageType, time, ,latitude, longitude) VALUES (?, ?, ?, ?, ?, ?)",
+	                	[eventMessage.eid, eventMessage.senderPhone, eventMessage.messageType, eventMessage.time, eventMessage.latitude, eventMessage.longitude],
 	                    onSuccess, function (e) {
 	                        console.log('新增活動訊息紀錄失敗，原因: ' + e.message);
 	    	            	// console.log(JSON.stringify(friend));
@@ -222,38 +222,38 @@ app.factory('DBManager', function($window, PhoneGap) {
     };
 });
 
-app.factory('EventMessageLogManager', function(DBManager) {
-	console.log("流程 - EventMessageLogManager");
-	var eventMessageLogs = [];
-	DBManager.getEventMessageLogs(function(tx, res) {
+app.factory('EventMessageManager', function(DBManager) {
+	console.log("流程 - EventMessageManager");
+	var eventMessages = [];
+	DBManager.getEventMessages(function(tx, res) {
 		for (var i = 0, max = res.rows.length; i < max; i++) {
-			eventMessageLogs.push(res.rows.item(i));
+			eventMessages.push(res.rows.item(i));
 		}
 	});
 	
 	return {
-		add: function(eventMessageLog, onSuccess, onError) {
-			console.log("流程 - EventMessageLogManager add");
-			console.log("eventMessageLog = " + JSON.stringify(eventMessageLog));
-			DBManager.addEventMessageLog(eventMessageLog, function(){
-				eventMessageLogs.push(eventMessageLog);
-				console.log("eventMessageLogs =" + JSON.stringify(eventMessageLogs));
+		add: function(eventMessage, onSuccess, onError) {
+			console.log("流程 - EventMessageManager add");
+			console.log("eventMessage = " + JSON.stringify(eventMessage));
+			DBManager.addEventMessage(eventMessage, function(){
+				eventMessages.push(eventMessage);
+				console.log("eventMessages =" + JSON.stringify(eventMessages));
                 (onSuccess || angular.noop)();
 			}, onError);
 		},
 
-		getEventMessageLogsByEid: function(eid) {
-			console.log("流程 - EventMessageLogManager getEventMessageLogsByEid");
-			var messageLogs = [];
+		getEventMessagesByEid: function(eid) {
+			console.log("流程 - EventMessageManager getEventMessagesByEid");
+			var messages = [];
 			var i;
-			for(i=0;i<eventMessageLogs.length;i++){
-				console.log("eventMessageLogs[i]=" + JSON.stringify(eventMessageLogs[i]));
-				if(eventMessageLogs[i].eid == eid){
+			for(i=0;i<eventMessages.length;i++){
+				console.log("eventMessages[i]=" + JSON.stringify(eventMessages[i]));
+				if(eventMessages[i].eid == eid){
 					console.log("2");
-					messageLogs.push(eventMessageLogs[i]);
+					messages.push(eventMessages[i]);
 				}
 			}
-			return messageLogs;
+			return messages;
 		}
 	};
 });
