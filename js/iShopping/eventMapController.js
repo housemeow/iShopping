@@ -3,7 +3,12 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 	$scope.eventName = $stateParams.name;
 	$scope.eid = $stateParams.eid;
 	$scope.hostPhone = SettingManager.getHost().phone;;
-
+	$scope.autoUpdate = {text: "自動", checked: true};
+	
+	$scope.toggleClick = function()
+	{
+		console.log("$scope.autoUpdate = " + JSON.stringify($scope.autoUpdate));
+	};
 	
 	console.log("eventMap eid=" + $scope.eid);
 
@@ -41,6 +46,12 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 		};
 		var map = new google.maps.Map(document.getElementById('map-canvas'),
 				mapOptions);
+
+		// 建立搜尋列的UI
+		var toggle = (document.getElementById('toggle'));
+		toggle.style.padding = '5px';
+		map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(toggle);
+		
 		var markerMe = new MarkerWithLabel({
 			position : origin,
 			labelContent : "我",
