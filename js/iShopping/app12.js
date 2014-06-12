@@ -294,12 +294,12 @@ app.run(function(Geolocation, DBManager, EventManager, SettingManager, EventCont
 //					console.log("member = " + JSON.stringify(member));
 //					EventContainMemberManager.add(member);
 //				}
-			}else if(message.message.type = "eventCreateMember" && host.phone != message.senderPhone){
+			}else if(message.message.type == "eventCreateMember" && host.phone != message.senderPhone){
 				var member = message.message.member;
 				console.log("begin to write member:" + JSON.stringify(member));
 				EventContainMemberManager.add(member);
 				console.log("success write");
-			}else if(message.message.type = "positionChanged" && host.phone != message.senderPhone){
+			}else if(message.message.type == "positionChanged" && host.phone != message.senderPhone){
 				$rootScope.$broadcast('positionChanged', message);
 			}
 		}
