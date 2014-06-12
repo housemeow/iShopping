@@ -317,11 +317,14 @@ app.factory('EventManager', function(DBManager, EventContainMemberManager, iLabE
 			console.log("event = " + JSON.stringify(event));
 			
 			DBManager.addEvent(event, function(){
-				console.log("流程 - EventManager DBManager.addEvent");
+				console.log("流程 - EventManager DBManager.addFromExistEid");
 				eventList[event.eid] = event;
-				console.log("event.members.length = " + event.members.length);
                 (onSuccess || angular.noop)(event.eid);
-			}, onError);
+                console.log("流程 - EventManager DBManager.addFromExistEid success");
+			}, function(error){
+				console.log("addFromExistEid error:" + JSON.stringify(error));
+			});
+			
 		},
 		add: function(event, onSuccess, onError) {
 			console.log("流程 - EventManager add");
@@ -331,8 +334,8 @@ app.factory('EventManager', function(DBManager, EventContainMemberManager, iLabE
 				DBManager.addEvent(event, function(){
 					console.log("流程 - EventManager DBManager.addEvent");
 					eventList[event.eid] = event;
-					console.log("event.members.length = " + event.members.length);
 	                (onSuccess || angular.noop)(eid);
+	                console.log("流程 - EventManager DBManager.addEvent success");
 				}, onError);
 			});
 		},

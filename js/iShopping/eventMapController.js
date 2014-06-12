@@ -2,6 +2,9 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 		Geolocation, $window) {
 	$scope.eventName = $stateParams.name;
 	$scope.eid = $stateParams.eid;
+	
+	console.log("eventContainMembers:" + JSON.stringify(EventContainMemberManager.getMembersByEid($scope.eid)));
+	
 	$scope.hostPhone = SettingManager.getHost().phone;
 	$scope.autoUpdate = {text: "自動", checked: SettingManager.getHost().isAutoSendPosition};
 	

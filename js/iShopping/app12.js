@@ -285,15 +285,20 @@ app.run(function(Geolocation, DBManager, EventManager, SettingManager, EventCont
 				console.log('這裡是app12.js window.receveMessage : type = eventCreate');
 				var event = message.message.event;
 				EventManager.addFromExistEid(event);
-				var members = message.message.event.members;
-				console.log("members = " + JSON.stringify(members));
-				var i;
-				for(i=0;i<members.length;i++){
-					var member = members[i];
-					member.eid = message.message.event.eid;
-					console.log("member = " + JSON.stringify(member));
-					EventContainMemberManager.add(member);
-				}
+//				var members = message.message.event.members;
+//				console.log("members = " + JSON.stringify(members));
+//				var i;
+//				for(i=0;i<members.length;i++){
+//					var member = members[i];
+//					member.eid = message.message.event.eid;
+//					console.log("member = " + JSON.stringify(member));
+//					EventContainMemberManager.add(member);
+//				}
+			}else if(message.message.type = "eventCreateMember" && host.phone != message.senderPhone){
+				var member = message.message.member;
+				console.log("begin to write member:" + JSON.stringify(member));
+				EventContainMemberManager.add(member);
+				console.log("success write");
 			}else if(message.message.type = "positionChanged" && host.phone != message.senderPhone){
 				$rootScope.$broadcast('positionChanged', message);
 			}
