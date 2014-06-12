@@ -1,7 +1,7 @@
 app.controller('EventChatRoomController', function($scope, ChatManager, $stateParams, FriendManager, SettingManager, iLabMessage, $window, Geolocation, $state){
 	$scope.eventName = $stateParams.name;
 	$scope.eventMemberListButton = [{
-		type : 'button-positive',
+		type : 'button-energized',
 		content: "<i class='icon ion-person-stalker'></i>",
 		tap: function() {
 			$state.go("eventMemberList", {eid : $stateParams.eid});

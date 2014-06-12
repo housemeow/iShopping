@@ -29,7 +29,7 @@ app.controller('SelectFriendsController', function($scope, $state,
 	};
 
 	$scope.addFriendsButton = [ {
-		type : 'button-positive',
+		type : 'button-energized',
 		content : "<i class='icon ion-checkmark'></i>",
 		tap : function() {
 			var members = JSON.stringify($scope.members);

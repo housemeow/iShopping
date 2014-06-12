@@ -115,7 +115,7 @@ app.controller('FriendsCtrl', function($scope, FriendManager, Contacts, Notifica
     };
 	    
 	$scope.newFriendsButton = [{
-		type: 'button-positive',
+		type: 'button-energized',
 		content: "<i class='icon ion-plus'></i>",
 		tap: function() {
 				$scope.onFriendClick($scope.ADDFRIEND);

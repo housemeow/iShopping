@@ -19,19 +19,19 @@
 			</label>
 			
 			<div class="item item-input-inset">
-			    <button ng-click="onCreateClick()" ng-show="state == CREATE" class="button button-positive">新增</button>
-				<button ng-click="onEditClick()" ng-show="state == EDIT" class="button button-positive">修改</button>
-				<button ng-click="onDeleteClick()" ng-show="state == DELETE" class="button button-positive">刪除</button>
+			    <button ng-click="onCreateClick()" ng-show="state == CREATE" class="button button-energized">新增</button>
+				<button ng-click="onEditClick()" ng-show="state == EDIT" class="button button-energized">修改</button>
+				<button ng-click="onDeleteClick()" ng-show="state == DELETE" class="button button-energized">刪除</button>
 				<div ng-show="state == ADDFRIEND">匯入：</div>
-				<button ng-click="setFriendsFromContacts()" ng-show="state == ADDFRIEND" class="button button-positive">聯絡人</button>
-				<button ng-click="setFriendsFromFB()" ng-disabled="!host.hasFB" ng-show="state == ADDFRIEND" class="button button-positive">臉書</button>
-				<button ng-click="setFriendsFromGoogleDrive()" ng-show="state == ADDFRIEND" class="button button-positive">雲通訊錄</button>
+				<button ng-click="setFriendsFromContacts()" ng-show="state == ADDFRIEND" class="button button-energized">聯絡人</button>
+				<button ng-click="setFriendsFromFB()" ng-disabled="!host.hasFB" ng-show="state == ADDFRIEND" class="button button-energized">臉書</button>
+				<button ng-click="setFriendsFromGoogleDrive()" ng-show="state == ADDFRIEND" class="button button-energized">雲通訊錄</button>
 				
-				<button ng-click="onSMSClick()" ng-show="state == BLESS" class="button button-positive">簡訊</button>
-				<button ng-click="onPhoneClick()" ng-show="state == BLESS" class="button button-positive">電話</button>
-				<button ng-click="onEmailClick()" ng-show="state == BLESS" ng-disabled="!model.email" class="button button-positive">郵件</button>
-				<button ng-click="onCalendarClick()" ng-show="state == BLESS" class="button button-positive">生日提醒</button>
-		    	<button ng-click="onCancelClick()" class="button button-positive" ng-show="state != RECEIVE">取消</button>
+				<button ng-click="onSMSClick()" ng-show="state == BLESS" class="button button-energized">簡訊</button>
+				<button ng-click="onPhoneClick()" ng-show="state == BLESS" class="button button-energized">電話</button>
+				<button ng-click="onEmailClick()" ng-show="state == BLESS" ng-disabled="!model.email" class="button button-energized">郵件</button>
+				<button ng-click="onCalendarClick()" ng-show="state == BLESS" class="button button-energized">生日提醒</button>
+		    	<button ng-click="onCancelClick()" class="button button-energized" ng-show="state != RECEIVE">取消</button>
 	  		</div>
   		</div>
 	  		

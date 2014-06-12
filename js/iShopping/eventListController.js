@@ -2,7 +2,7 @@ app.controller('EventListController', function($scope, ChatManager, EventManager
 	$scope.eventList = null;
 	
 	$scope.newEventButton = [{
-		type: 'button-positive',
+		type: 'button-energized',
 		content: "<i class='icon ion-plus'></i>",
 		tap: function() 
 		{

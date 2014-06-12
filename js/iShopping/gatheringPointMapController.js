@@ -5,7 +5,7 @@ app.controller('GatheringPointMapController', function($scope, $stateParams,
 
 	$scope.refreshState = function(state) {
 		var buttonCSS = {
-			type : 'button-positive',
+			type : 'button-energized',
 			content : "<i class='icon ion-checkmark'></i>"
 		};
 		if ($scope.state == "VIEW") {

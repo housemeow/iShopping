@@ -23,13 +23,13 @@
 			</label>
 			<label class="item item-input">
 			    <span class="input-label" ng-show="state == 'CREATE'">加入朋友: </span>
-				<button ng-click="clickAddFriendButton()" ng-show="state == 'CREATE'" class="button button-positive">選擇朋友({{event.selectedMemberCount}})</button>
+				<button ng-click="clickAddFriendButton()" ng-show="state == 'CREATE'" class="button button-energized">選擇朋友({{event.selectedMemberCount}})</button>
 			</label>
 			<label class="item item-input">
 			    <span class="input-label">集合點:({{event.latitude}}, {{event.longitude}})</span>
 			</label>
-			<button ng-click="clickGatheringPointButton()"class="button button-positive">{{gatheringPointButonText}}</button>
-			<button ng-click="clickCancelButton()" ng-show="state == 'EDIT'" class="button button-positive">取消修改</button>
+			<button ng-click="clickGatheringPointButton()"class="button button-energized">{{gatheringPointButonText}}</button>
+			<button ng-click="clickCancelButton()" ng-show="state == 'EDIT'" class="button button-energized">取消修改</button>
         </div>
 	    
     </ion-content>

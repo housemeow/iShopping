@@ -5,7 +5,7 @@ app.controller('EventController', function($scope, EventContainMemberManager, Ev
 	$scope.hostName = SettingManager.getHost().name;
 	$scope.refreshState = function(state) {
 		var buttonCSS = {
-			type : 'button-positive'
+			type : 'button-energized'
 		};
 		if ($scope.state == "VIEW") {
 			$scope.title = "活動詳細資料";

@@ -4,10 +4,10 @@
 	    	<label class="item-input-wrapper">
 	      		<input type="text" placeholder="請輸入訊息...." ng-model="chatMessage.text">
 	    	</label>
-	   		<button class="button button-positive" ng-click="onSendMessageClick()">
+	   		<button class="button button-energized" ng-click="onSendMessageClick()">
 	      		傳送
 	    	</button>
-	    	<button class="button button-positive" ng-click="onLocationClick()">
+	    	<button class="button button-energized" ng-click="onLocationClick()">
 	      		位置
 	    	</button>
     	</div>
@@ -17,7 +17,7 @@
 		                <div ng-class="message.senderPhone == hostPhone ? 'byMe' : ''">
 		                	<i class="icon ion-ios7-chatbubble" ng-show="!hasLocation(message)"></i>
 		                	<i class="icon ion-map" ng-show="hasLocation(message)"></i>
-			                <h2 ng-class="message.hasRead && message.senderPhone == hostPhone ? 'positive' : ''">{{message.message.text | removeLocation}}</h2>
+			                <h2 ng-class="message.hasRead && message.senderPhone == hostPhone ? 'energized' : ''">{{message.message.text | removeLocation}}</h2>
 		                <p>{{message.time | fromNow}} {{message.hasRead && message.senderPhone == hostPhone ? '已讀' : ''}}</p>
 				    </div>
 	        	</div>

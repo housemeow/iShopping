@@ -18,7 +18,7 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 	console.log("eventMap eid=" + $scope.eid);
 
 	$scope.viewEventButton = [ {
-		type : 'button-positive',
+		type : 'button-energized',
 		content : "<i class='icon ion-document-text'></i>",
 		tap : function() {
 			$state.go("event", {
@@ -29,7 +29,7 @@ app.controller('EventMapController', function(iLabMessage, SettingManager, Event
 	} ];
 
 	$scope.eventChatRoomButton = [ {
-		type : 'button-positive',
+		type : 'button-energized',
 		content : "<i class='icon ion-chatbubbles'></i>",
 		tap : function() {
 			$state.go("eventChatRoom", {
